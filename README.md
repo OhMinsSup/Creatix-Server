@@ -53,3 +53,7 @@
 [Docker](https://seokjun.kim/docker-nginx-node/)
 
 [node.js - pm2](https://yongjinsite.wordpress.com/2018/03/22/node-js-%EC%84%B1%EB%8A%A5-%EC%98%AC%EB%A6%AC%EA%B8%B0/)
+
+[네이버](https://developers.naver.com/docs/common/openapiguide/apilist.md#%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EB%B0%A9%EC%8B%9D-%EC%98%A4%ED%94%88-api)
+
+[네이버 로그인](https://developers.naver.com/docs/login/api/)

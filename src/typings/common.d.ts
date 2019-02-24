@@ -8,11 +8,11 @@ export interface Response<R = any> {
 }
 
 /**
- * Social 
+ * Social
  */
 export interface Profile {
-  id: number | string,
-  thumbnail: ?string,
-  email: string | null,
-  name: ?string,
-};
+  id?: number | string;
+  thumbnail?: string;
+  email?: string;
+  name?: string;
+}

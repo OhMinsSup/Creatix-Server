@@ -41,6 +41,8 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
+    "@octokit/rest": "^16.16.0",
+    "axios": "^0.18.0",
     "dotenv": "^6.2.0",
     "fb": "^2.0.0",
     "googleapis": "^37.2.0",
