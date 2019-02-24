@@ -1,0 +1,102 @@
+{
+  "name": "creatix-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "set NODE_ENV=development && nodemon --exec ts-node src/server.ts",
+    "test": "set NODE_ENV=test && jest --watchAll"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/dotenv": "^6.1.0",
+    "@types/faker": "^4.1.5",
+    "@types/fb": "0.0.23",
+    "@types/jest": "^24.0.6",
+    "@types/joi": "^14.3.1",
+    "@types/jsonwebtoken": "^8.3.0",
+    "@types/koa": "^2.0.48",
+    "@types/koa-compress": "^2.0.8",
+    "@types/koa-cors": "0.0.0",
+    "@types/koa-helmet": "^3.1.2",
+    "@types/koa-morgan": "^1.0.4",
+    "@types/koa-router": "^7.0.39",
+    "@types/node": "^11.9.4",
+    "@types/nodemailer": "^4.6.6",
+    "@types/pg": "^7.4.13",
+    "@types/shortid": "0.0.29",
+    "@types/supertest": "^2.0.7",
+    "faker": "^4.1.0",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^3.4.2",
+    "ts-jest": "^23.10.5",
+    "ts-node": "^8.0.2",
+    "tsconfig-paths": "^3.8.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typeorm": "^0.2.13",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "fb": "^2.0.0",
+    "googleapis": "^37.2.0",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.4.0",
+    "koa": "^2.7.0",
+    "koa-body": "^4.0.8",
+    "koa-compress": "^3.0.0",
+    "koa-cors": "0.0.16",
+    "koa-helmet": "^4.0.0",
+    "koa-morgan": "^1.0.1",
+    "koa-router": "^7.4.0",
+    "nodemailer": "^5.1.1",
+    "pg": "^7.8.0",
+    "reflect-metadata": "^0.1.13",
+    "shortid": "^2.2.14",
+    "webpack": "^4.29.5"
+  },
+  "jest": {
+    "verbose": true,
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "ts",
+      "tsx"
+    ],
+    "collectCoverageFrom": [
+      "**/*.{ts,js}",
+      "!**/node_modules/**",
+      "!**/build/**",
+      "!**/coverage/**"
+    ],
+    "transform": {
+      "^.+\\.(tsx|ts)?$": "ts-jest"
+    },
+    "collectCoverage": true,
+    "testEnvironment": "node",
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "coverageReporters": [
+      "text",
+      "text-summary"
+    ],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts)x?$",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/build/",
+      "/coverage/",
+      "webpack.config.js"
+    ]
+  }
+}
