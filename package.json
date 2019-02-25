@@ -76,7 +76,8 @@
       "**/*.{ts,js}",
       "!**/node_modules/**",
       "!**/build/**",
-      "!**/coverage/**"
+      "!**/coverage/**",
+      "!**/*.config.js"
     ],
     "transform": {
       "^.+\\.(tsx|ts)?$": "ts-jest"

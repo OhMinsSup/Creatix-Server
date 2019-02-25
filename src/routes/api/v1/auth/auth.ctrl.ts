@@ -225,6 +225,7 @@ export const sendEmail: Middleware = async (ctx: Context) => {
     const existingCertification = await Certification.findOne({
       email
     });
+    console.log(existingCertification);
 
     // 만약 이미 존재하면 삭제하고 다시 생성
     if (existingCertification) {
@@ -233,7 +234,6 @@ export const sendEmail: Middleware = async (ctx: Context) => {
 
     const certification = new Certification();
     certification.code = shortid.generate();
-    certification.platform = 'EMAIL';
     certification.email = email;
     certification.save();
 
@@ -281,7 +281,7 @@ export const checkCode: Middleware = async (ctx: Context) => {
   try {
     // 코드값으로 certification이 존재하는지 체크
     const existingCertification = await Certification.findOne({
-      code
+      code: code
     });
 
     if (!existingCertification) {

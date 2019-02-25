@@ -12,15 +12,16 @@ class Certification extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column({ type: 'varchar', enum: ['EMAIL'] })
-  public platform: 'EMAIL';
-
-  @Column({ type: 'varchar' })
+  @Column({
+    type: 'varchar',
+    nullable: true
+  })
   public email: string;
 
   @Column({
     type: 'varchar',
-    length: 255
+    length: 255,
+    nullable: true
   })
   public code: string;
 
