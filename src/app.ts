@@ -3,6 +3,8 @@ import helmet from 'koa-helmet';
 import morgan from 'koa-morgan';
 import compress from 'koa-compress';
 import body from 'koa-body';
+import cors from 'koa-cors';
+import session from 'koa-session';
 import routes from './routes';
 import database from './database/db';
 
@@ -19,6 +21,10 @@ class Server {
   private middleware(): void {
     const { app } = this;
 
+    app.keys = ['social_token'];
+
+    app.use(cors());
+    app.use(session(app));
     app.use(
       body({
         multipart: true,
@@ -39,7 +45,7 @@ class Server {
     app.use(morgan('dev'));
     app.use(helmet());
   }
-  
+
   private async initializeDb(): Promise<void> {
     if (process.env.NODE_ENV === 'test') {
       await database.connectTest();
@@ -49,7 +55,7 @@ class Server {
       }
     }
   }
-  
+
   private routes(): void {
     const { app } = this;
     app.use(routes.routes()).use(routes.allowedMethods());

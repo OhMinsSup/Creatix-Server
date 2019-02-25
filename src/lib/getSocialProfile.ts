@@ -5,7 +5,7 @@ import { google } from 'googleapis';
 import { Profile } from '../typings/common';
 
 const getProfile = {
-  naver(accessToken: string) {
+  naver(accessToken: string): Promise<Profile> {
     return new Promise((resolve, reject) => {
       axios
         .get('https://openapi.naver.com/v1/nid/me', {
@@ -111,11 +111,11 @@ const getProfile = {
             reject(error);
             return;
           }
-
           const id = meta[0].id;
           const name = names[0].displayNameLastFirst;
           const photo = photos[0].url;
           const email = emailAddresses[0].value;
+
           const profile = {
             id: id,
             name: name,

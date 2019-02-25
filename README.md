@@ -38,6 +38,8 @@
 
 [TDD 6](https://hackernoon.com/async-testing-koa-with-jest-1b6e84521b71)
 
+[TDD 7](https://flaviocopes.com/jest/)
+
 [TDD-typeorm 1](https://dev.to/kubaapk/nodejs---unit-tests---testing-without-hitting-database-confusings-3448)
 
 [TDD-typeorm 2](https://github.com/Tobias4872/typeorm-unit-testing)

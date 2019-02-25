@@ -413,7 +413,15 @@ export const localLogin: Middleware = async (ctx: Context) => {
   }
 };
 
-export const logout = (ctx: Context) => {
+/**
+ * logout API
+ *
+ * POST api/v1/auth/logout
+ *
+ * @param {Context} ctx A Koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs.
+ * @returns {compose.Middleware<ParameterizedContext<any, {}>>} Return as Promise type compose.Middleware type
+ */
+export const logout: Middleware = (ctx: Context) => {
   ctx.cookies.set('access_token', undefined);
   ctx.cookies.set('refresh_token', undefined);
 
