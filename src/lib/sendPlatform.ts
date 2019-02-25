@@ -11,6 +11,15 @@ interface Mail {
 
 const { EMAIL, PASS } = process.env;
 
+/**
+ * @description 메일을 보내는 함수
+ * @param {string} to
+ * @param {string} from
+ * @param {string} subject
+ * @param {string} html
+ * @returns {void}
+ */
+
 export const sendMail = ({ to, from, subject, html }: Mail) => {
   let transporter = nodemailer.createTransport({
     service: 'Gmail',

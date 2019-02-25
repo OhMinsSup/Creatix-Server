@@ -1,3 +1,8 @@
+/**
+ * @description 이메일 템플릿
+ * @param {string} code
+ * @returns {string} EmaiHtmlTemplate
+ */
 export const emailTemplate = (code: string) => {
   return `
 <a href="/">
