@@ -225,7 +225,6 @@ export const sendEmail: Middleware = async (ctx: Context) => {
     const existingCertification = await Certification.findOne({
       email
     });
-    console.log(existingCertification);
 
     // 만약 이미 존재하면 삭제하고 다시 생성
     if (existingCertification) {

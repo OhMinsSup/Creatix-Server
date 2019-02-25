@@ -77,7 +77,7 @@
       "!**/node_modules/**",
       "!**/build/**",
       "!**/coverage/**",
-      "!**/*.config.js"
+      "!**/src/lib/**"
     ],
     "transform": {
       "^.+\\.(tsx|ts)?$": "ts-jest"
@@ -92,6 +92,7 @@
         "statements": 80
       }
     },
+    "coveragePathIgnorePatterns": ["<rootDir>/webpack.config.js"],
     "coverageReporters": [
       "text",
       "text-summary"
@@ -101,7 +102,7 @@
       "/node_modules/",
       "/build/",
       "/coverage/",
-      "webpack.config.js"
+      "/src/lib/"
     ]
   }
 }
