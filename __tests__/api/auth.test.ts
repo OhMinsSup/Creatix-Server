@@ -2,11 +2,11 @@ import 'reflect-metadata';
 import faker from 'faker';
 import requset from 'supertest';
 import { Connection, getRepository } from 'typeorm';
-import server from '../src/app';
-import User from '../src/database/entity/User';
-import { createTestConnection } from '../src/database/db';
-import Certification from '../src/database/entity/Certification';
-import UserProfile from '../src/database/entity/UserProfile';
+import server from '../../src/app';
+import User from '../../src/database/entity/User';
+import { createTestConnection } from '../../src/database/db';
+import Certification from '../../src/database/entity/Certification';
+import UserProfile from '../../src/database/entity/UserProfile';
 
 faker.seed(Date.now() + 5);
 const username = faker.internet.userName();

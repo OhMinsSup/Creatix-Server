@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import requset from 'supertest';
-import server from '../src/app';
+import server from '../../src/app';
 
 describe('creatix server version check', () => {
   jest.useFakeTimers();
