@@ -10,6 +10,8 @@ auth.post('/login/local', localCtrl.localLogin);
 auth.post('/logout', localCtrl.logout);
 
 auth.post('/register/:provider(github|facebook|google|naver)/social', socialCtrl.socialRegister);
+auth.post('/login/:provider(github|facebook|google|naver)/social', socialCtrl.socialLogin);
+auth.post('/verify/:provider(github|facebook|google|naver)/social', socialCtrl.verifySocial);
 
 auth.post('/sendEmail', localCtrl.sendEmail);
 auth.get('/sendEmail/check/:code', localCtrl.checkCode);

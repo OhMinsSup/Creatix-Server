@@ -3,8 +3,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  Entity
+  Entity,
+  OneToOne,
+  JoinColumn
 } from 'typeorm';
+import User from './User';
 
 @Entity()
 class SocialAccount {
@@ -20,6 +23,9 @@ class SocialAccount {
   @Column('varchar')
   public provider: string;
 
+  @Column('uuid')
+  public fk_user_id: string;
+
   @Column('timestampz')
   @CreateDateColumn()
   public created_at: Date;
@@ -27,6 +33,10 @@ class SocialAccount {
   @Column('timestamptz')
   @UpdateDateColumn()
   public updated_at: Date;
+
+  @OneToOne(type => User, { cascade: true })
+  @JoinColumn({ name: 'fk_user_id' })
+  public user: User;
 }
 
 export default SocialAccount;
