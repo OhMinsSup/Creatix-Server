@@ -212,10 +212,12 @@ export const githubCallback: Middleware = async (ctx: Context) => {
       nextUrl += `&next=${next}`;
     }
 
-    if (ctx.session !== null) {
-      ctx.session.social_token = response.data.access_token;
+    if (!ctx.session) {
+      ctx.status = 401;
+      return;
     }
 
+    ctx.session.social_token = response.data.access_token;
     ctx.redirect(encodeURI(nextUrl));
 
     ctx.body = {
@@ -246,7 +248,7 @@ export const getToken: Middleware = (ctx: Context) => {
       const token: string = ctx.session.social_token;
 
       if (!token) {
-        ctx.status = 400;
+        ctx.status = 401;
         ctx.body = {
           ok: false,
           error: {
@@ -270,6 +272,7 @@ export const getToken: Middleware = (ctx: Context) => {
       return;
     }
 
+    ctx.status = 401;
     ctx.body = {
       ok: false,
       error: {
