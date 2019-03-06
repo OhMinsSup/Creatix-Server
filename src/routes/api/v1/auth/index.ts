@@ -1,15 +1,20 @@
 import Router from 'koa-router';
-import * as authCtrl from './auth.ctrl';
+import * as localCtrl from './local.ctrl';
+import * as socialCtrl from './social.ctrl';
+import callback from './callback';
 
 const auth = new Router();
 
-auth.post('/register/local', authCtrl.localRegister);
-auth.post('/login/local', authCtrl.localLogin);
-auth.post('/logout', authCtrl.logout);
+auth.post('/register/local', localCtrl.localRegister);
+auth.post('/login/local', localCtrl.localLogin);
+auth.post('/logout', localCtrl.logout);
 
-auth.post('/sendEmail', authCtrl.sendEmail);
-auth.get('/sendEmail/check/:code', authCtrl.checkCode);
+auth.post('/register/:provider(github|facebook|google|naver)/social', socialCtrl.socialRegister);
 
-auth.get('/exists/:key(email|username)/:value', authCtrl.checkExists);
+auth.post('/sendEmail', localCtrl.sendEmail);
+auth.get('/sendEmail/check/:code', localCtrl.checkCode);
+auth.get('/exists/:key(email|username)/:value', localCtrl.checkExists);
+
+auth.use('/callback', callback.routes());
 
 export default auth;

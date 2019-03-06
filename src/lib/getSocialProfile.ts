@@ -131,6 +131,6 @@ const getProfile = {
   }
 };
 
-export default function getSocialProfile(provider: string, accessToken: string) {
+export default function getSocialProfile(provider: string, accessToken: string): Promise<Profile> {
   return getProfile[provider](accessToken);
 }

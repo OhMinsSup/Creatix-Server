@@ -1,6 +1,7 @@
 # Creatix
 
-> creatix는 창작자들을 위한 서비스 플랫폼 입니다. 현재 서비스는 한국어로만 제공할 예정입니다.
+> creatix는 창작자들을 위한 서비스 플랫폼 입니다. 아직 개발 단계입니다.
+> 이 프로젝트는 오픈소스로 진행 됩니다.
 
 # On the backend:
  - Koa - typescript (Server ❤️)

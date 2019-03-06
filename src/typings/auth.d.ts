@@ -71,3 +71,31 @@ export interface LocalLoginBodyPayload {
   access_token: string;
   refresh_token: string;
 }
+
+/**
+ * Social Register
+ */
+export interface SocialRegisterBodySchema {
+  accessToken: string;
+  form: {
+    fallbackEmail: string;
+    username: string;
+    shortBio: string;
+  };
+}
+
+export interface SocialRegisterParamsSchema {
+  provider: string;
+}
+
+/*
+ * Callback
+ */
+export interface RedirectProviderLoginQuerySchema {
+  next: string;
+}
+
+export interface ProviderCallbackQuerySchema {
+  code: string;
+  state: string;
+}

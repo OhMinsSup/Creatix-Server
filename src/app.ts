@@ -18,7 +18,7 @@ class Server {
     this.routes();
   }
 
-  private middleware(): void {
+  private middleware() {
     const { app } = this;
 
     app.keys = ['social_token'];

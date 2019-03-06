@@ -355,6 +355,7 @@ export const localLogin: Middleware = async (ctx: Context) => {
   const userCustomRespository = await getCustomRepository(UserRepository);
   const userProfileCustomRespository = await getCustomRepository(UserProfileRepository);
   const { email, password } = ctx.request.body as LocalLoginBodySchema;
+
   try {
     const user = await userCustomRespository.findOne({
       email
@@ -423,6 +424,5 @@ export const localLogin: Middleware = async (ctx: Context) => {
 export const logout: Middleware = (ctx: Context) => {
   ctx.cookies.set('access_token', undefined);
   ctx.cookies.set('refresh_token', undefined);
-
   ctx.status = 200;
 };
