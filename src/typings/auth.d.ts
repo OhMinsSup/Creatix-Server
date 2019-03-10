@@ -1,101 +1,103 @@
-/**
- * LocalRegister
- */
-export interface LocalRegisterBodySchema {
-  username: string;
-  email: string;
-  short_bio: string;
-  password: string;
-}
-
-export interface LocalRegisterBodyPayload {
-  user: {
-    id: string;
+declare module 'AuthTyping' {
+  /**
+   * LocalRegister
+   */
+  export interface LocalRegisterBodySchema {
     username: string;
     email: string;
-    thumbnail: string | null;
-  };
-  access_token: string;
-  refresh_token: string;
-}
+    short_bio: string;
+    password: string;
+  }
 
-/**
- * CheckExists
- */
-export interface CheckExistsParamSchema {
-  key: string;
-  value: string;
-}
+  export interface LocalRegisterBodyPayload {
+    user: {
+      id: string;
+      username: string;
+      email: string;
+      thumbnail: string | null;
+    };
+    access_token: string;
+    refresh_token: string;
+  }
 
-export interface CheckExistBodyPayload {
-  exists: boolean;
-}
+  /**
+   * CheckExists
+   */
+  export interface CheckExistsParamSchema {
+    key: string;
+    value: string;
+  }
 
-/**
- * SendEmail
- */
-export interface SendEmailBodySchema {
-  email: string;
-}
+  export interface CheckExistBodyPayload {
+    exists: boolean;
+  }
 
-export interface SendEmailBodyPayload {
-  code: string;
-}
-
-/**
- * CheckCode
- */
-export interface CheckCodeParamSchema {
-  code: string;
-}
-
-export interface CheckCodeBodyPayload {
-  exists: boolean;
-}
-
-/**
- * Local Login
- */
-export interface LocalLoginBodySchema {
-  email: string;
-  password: string;
-}
-
-export interface LocalLoginBodyPayload {
-  user: {
-    id: string;
-    username: string;
+  /**
+   * SendEmail
+   */
+  export interface SendEmailBodySchema {
     email: string;
-    thumbnail: string | null;
-  };
-  access_token: string;
-  refresh_token: string;
-}
+  }
 
-/**
- * Social Register
- */
-export interface SocialRegisterBodySchema {
-  accessToken: string;
-  form: {
-    fallbackEmail: string;
-    username: string;
-    shortBio: string;
-  };
-}
+  export interface SendEmailBodyPayload {
+    code: string;
+  }
 
-export interface SocialRegisterParamsSchema {
-  provider: string;
-}
+  /**
+   * CheckCode
+   */
+  export interface CheckCodeParamSchema {
+    code: string;
+  }
 
-/*
- * Callback
- */
-export interface RedirectProviderLoginQuerySchema {
-  next: string;
-}
+  export interface CheckCodeBodyPayload {
+    exists: boolean;
+  }
 
-export interface ProviderCallbackQuerySchema {
-  code: string;
-  state: string;
+  /**
+   * Local Login
+   */
+  export interface LocalLoginBodySchema {
+    email: string;
+    password: string;
+  }
+
+  export interface LocalLoginBodyPayload {
+    user: {
+      id: string;
+      username: string;
+      email: string;
+      thumbnail: string | null;
+    };
+    access_token: string;
+    refresh_token: string;
+  }
+
+  /**
+   * Social Register
+   */
+  export interface SocialRegisterBodySchema {
+    accessToken: string;
+    form: {
+      fallbackEmail: string;
+      username: string;
+      shortBio: string;
+    };
+  }
+
+  export interface SocialRegisterParamsSchema {
+    provider: string;
+  }
+
+  /*
+   * Callback
+   */
+  export interface RedirectProviderLoginQuerySchema {
+    next: string;
+  }
+
+  export interface ProviderCallbackQuerySchema {
+    code: string;
+    state: string;
+  }
 }

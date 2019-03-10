@@ -1,16 +1,9 @@
 import nodemailer from 'nodemailer';
 import doteve from 'dotenv';
+import { Mail } from 'CommonTyping';
 doteve.config();
 
-interface Mail {
-  to: string;
-  from: string;
-  subject: string;
-  html: string;
-}
-
 const { EMAIL, PASS } = process.env;
-
 /**
  * @description 메일을 보내는 함수
  * @param {string} to
@@ -19,7 +12,6 @@ const { EMAIL, PASS } = process.env;
  * @param {string} html
  * @returns {void}
  */
-
 export const sendMail = ({ to, from, subject, html }: Mail) => {
   let transporter = nodemailer.createTransport({
     service: 'Gmail',

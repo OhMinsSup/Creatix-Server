@@ -4,11 +4,8 @@ import dotenv from 'dotenv';
 import axios from 'axios';
 import crypto from 'crypto';
 import qs from 'qs';
-import { Response } from '../../../../../typings/common';
-import {
-  RedirectProviderLoginQuerySchema,
-  ProviderCallbackQuerySchema
-} from '../../../../../typings/auth';
+import { Response } from 'CommonTyping';
+import { RedirectProviderLoginQuerySchema, ProviderCallbackQuerySchema } from 'AuthTyping';
 dotenv.config();
 
 const {
@@ -17,7 +14,9 @@ const {
   FACEBOOK_ID,
   FACEBOOK_SECRET,
   GITHUB_ID,
-  GITHUB_SECRET
+  GITHUB_SECRET,
+  NAVER_ID,
+  NAVER_SECRET
 } = process.env;
 
 if (!GOOGLE_ID || !GOOGLE_SECRET) {
@@ -38,6 +37,68 @@ if (!GITHUB_ID || !GITHUB_SECRET) {
   throw error;
 }
 
+if (!NAVER_ID || !NAVER_SECRET) {
+  const error = new Error('InvalidNaverEnvError');
+  error.message = 'NaverEnv is missing.';
+  throw error;
+}
+
+/**
+ * Redirect Naver Auth Login API
+ *
+ * GET api/v1/auth/callback/naver/login
+ *
+ * @param {Context} ctx A Koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs.
+ * @returns {compose.Middleware<ParameterizedContext<any, {}>>} Return as Promise type compose.Middleware type
+ */
+export const redirectNaverLogin: Middleware = async (ctx: Context) => {
+  const { next } = ctx.request.query as RedirectProviderLoginQuerySchema;
+  const callbackUrl = 'http://localhost:6000/api/v1/auth/callback/naver';
+  const apiUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_ID}&redirect_uri=${callbackUrl}&state=${next}`;
+
+  ctx.redirect(apiUrl);
+};
+
+/**
+ * Naver Auth Callback API
+ *
+ * GET api/v1/auth/callback/naver
+ *
+ * @param {Context} ctx A Koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs.
+ * @returns {compose.Middleware<ParameterizedContext<any, {}>>} Return as Promise type compose.Middleware type
+ */
+export const naverCallback: Middleware = async (ctx: Context) => {
+  const { code, state } = ctx.request.query as ProviderCallbackQuerySchema;
+  const callbackUrl = 'http://localhost:6000/api/v1/auth/callback/naver';
+  const apiUrl = `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NAVER_ID}&client_secret=${NAVER_SECRET}&redirect_uri=${callbackUrl}&code=${code}&state=${state}`;
+
+  try {
+    const response = await axios.get(apiUrl, {
+      headers: {
+        'X-Naver-Client-Id': NAVER_ID,
+        'X-Naver-Client-Secret': NAVER_SECRET
+      }
+    });
+
+    const hash = crypto.randomBytes(40).toString('hex');
+    let nextUrl = `http://localhost:3000/callback?type=naver&key=${hash}`;
+    if (state) {
+      const { next } = JSON.parse(state);
+      nextUrl += `&next=${next}`;
+    }
+
+    if (!ctx.session) {
+      ctx.status = 401;
+      return;
+    }
+
+    ctx.session.social_token = response.data.access_token;
+    ctx.redirect(encodeURI(nextUrl));
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+
 /**
  * Redirect Google Auth Login API
  *
@@ -47,7 +108,7 @@ if (!GITHUB_ID || !GITHUB_SECRET) {
  * @returns {compose.Middleware<ParameterizedContext<any, {}>>} Return as Promise type compose.Middleware type
  */
 export const redirectGoogleLogin: Middleware = (ctx: Context) => {
-  const { next } = ctx.query as RedirectProviderLoginQuerySchema;
+  const { next } = ctx.request.query as RedirectProviderLoginQuerySchema;
   const callbackUrl = 'http://localhost:6000/api/v1/auth/callback/google';
   const oauth2Client = new google.auth.OAuth2(GOOGLE_ID, GOOGLE_SECRET, callbackUrl);
 
@@ -67,7 +128,7 @@ export const redirectGoogleLogin: Middleware = (ctx: Context) => {
  * @returns {compose.Middleware<ParameterizedContext<any, {}>>} Return as Promise type compose.Middleware type
  */
 export const googleCallback: Middleware = async (ctx: Context) => {
-  const { code, state } = ctx.query as ProviderCallbackQuerySchema;
+  const { code, state } = ctx.request.query as ProviderCallbackQuerySchema;
   const callbackUrl = 'http://localhost:6000/api/v1/auth/callback/google';
   if (!code) {
     ctx.redirect(`http://localhost:3000/?callback?error=1`);
@@ -116,7 +177,7 @@ export const googleCallback: Middleware = async (ctx: Context) => {
  * @returns {compose.Middleware<ParameterizedContext<any, {}>>} Return as Promise type compose.Middleware type
  */
 export const redirectFacebookLogin: Middleware = (ctx: Context) => {
-  const { next } = ctx.query as RedirectProviderLoginQuerySchema;
+  const { next } = ctx.request.query as RedirectProviderLoginQuerySchema;
 
   const state = JSON.stringify({ next: next || '/' });
   const callbackUrl = 'http://localhost:6000/api/v1/auth/callback/facebook';
@@ -133,7 +194,7 @@ export const redirectFacebookLogin: Middleware = (ctx: Context) => {
  * @returns {compose.Middleware<ParameterizedContext<any, {}>>} Return as Promise type compose.Middleware type
  */
 export const facebookCallback: Middleware = async (ctx: Context) => {
-  const { code, state } = ctx.query as ProviderCallbackQuerySchema;
+  const { code, state } = ctx.request.query as ProviderCallbackQuerySchema;
   const callbackUrl = 'http://localhost:6000/api/v1/auth/callback/facebook';
   if (!code) {
     ctx.redirect(`http://localhost:4000/?callback?error=1`);

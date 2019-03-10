@@ -8,9 +8,9 @@ import UserProfile from '../../../../database/entity/UserProfile';
 import UserRepository from '../../../../database/repository/UserRepository';
 import UserProfileRepository from '../../../../database/repository/UserProfileRepository';
 import { setTokenCookie } from '../../../../lib/token';
-import { Response } from '../../../../typings/common';
 import { sendMail } from '../../../../lib/sendPlatform';
 import { emailTemplate } from '../../../../lib/emailTemplate';
+import { Response } from 'CommonTyping';
 import {
   LocalRegisterBodySchema,
   LocalRegisterBodyPayload,
@@ -22,7 +22,7 @@ import {
   CheckExistBodyPayload,
   LocalLoginBodySchema,
   LocalLoginBodyPayload
-} from '../../../../typings/auth';
+} from 'AuthTyping';
 
 /**
  * Local Register API

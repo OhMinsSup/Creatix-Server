@@ -2,7 +2,7 @@ import axios from 'axios';
 import Fb from 'fb';
 import Github from '@octokit/rest';
 import { google } from 'googleapis';
-import { Profile } from '../typings/common';
+import { Profile } from 'CommonTyping';
 
 const getProfile = {
   naver(accessToken: string): Promise<Profile> {

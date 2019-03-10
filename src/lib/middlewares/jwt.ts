@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import { AccessTokenData } from '../../typings/token';
+import { AccessTokenData } from 'TokenTyping';
 import { decodedToken, refresh } from '../token';
 
 /**

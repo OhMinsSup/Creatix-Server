@@ -37,7 +37,7 @@ class User {
   @UpdateDateColumn()
   public updated_at: Date;
 
-  public comparePassword(password): boolean {
+  public comparePassword(password: string): boolean {
     const hashedPassword = hash(password);
     return this.password === hashedPassword;
   }

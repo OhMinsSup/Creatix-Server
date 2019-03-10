@@ -1,6 +1,6 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { GenerateToken, DecodedToken, RefreshTokenData } from '../typings/token';
+import { GenerateToken, DecodedToken, RefreshTokenData } from 'TokenTyping';
 import { Context } from 'koa';
 import { getRepository } from 'typeorm';
 import User from '../database/entity/User';
