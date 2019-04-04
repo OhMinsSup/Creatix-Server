@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import { GraphQLServer } from 'graphql-yoga';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -5,13 +6,25 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import compresion from 'compression';
 import schema from './schema';
+import { createTestingConnection } from './lib/testing/TestingUtils';
+import { createDevConnection } from './lib/utils';
+dotenv.config();
 
 class App {
   public app: GraphQLServer;
   constructor() {
     this.app = new GraphQLServer({
-      schema
+      schema,
+      context: req => {
+        const { connection: { context = null } = {} } = req;
+        return {
+          res: req.response,
+          req: req.request,
+          context
+        };
+      }
     });
+    this.initiallizeDB();
     this.middlewares();
   }
 
@@ -29,6 +42,24 @@ class App {
     express.use(helmet());
     express.use(cookieParser());
   };
+
+  private initiallizeDB() {
+    if (process.env.NODE_ENV === 'test') {
+      createTestingConnection(true)
+        .then(() => {
+          console.log('Creatix Testing Database Conntection ✅');
+          console.log('Postgres Testing RDBMS connection is established ✅');
+        })
+        .catch(error => console.log(error));
+    } else if (process.env.NODE_ENV === 'development') {
+      createDevConnection()
+        .then(() => {
+          console.log('Creatix Database Conntection ✅');
+          console.log('Postgres RDBMS connection is established ✅');
+        })
+        .catch(error => console.log(error));
+    }
+  }
 }
 
 export default new App().app;
