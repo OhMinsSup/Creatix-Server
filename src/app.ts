@@ -6,7 +6,6 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import compresion from 'compression';
 import schema from './schema';
-import { createTestingConnection } from './lib/testing/TestingUtils';
 import { createDevConnection } from './lib/utils';
 dotenv.config();
 
@@ -44,21 +43,12 @@ class App {
   };
 
   private initiallizeDB() {
-    if (process.env.NODE_ENV === 'test') {
-      createTestingConnection(true)
-        .then(() => {
-          console.log('Creatix Testing Database Conntection ✅');
-          console.log('Postgres Testing RDBMS connection is established ✅');
-        })
-        .catch(error => console.log(error));
-    } else if (process.env.NODE_ENV === 'development') {
-      createDevConnection()
-        .then(() => {
-          console.log('Creatix Database Conntection ✅');
-          console.log('Postgres RDBMS connection is established ✅');
-        })
-        .catch(error => console.log(error));
-    }
+    createDevConnection()
+      .then(() => {
+        console.log('Creatix Database Conntection ✅');
+        console.log('Postgres RDBMS connection is established ✅');
+      })
+      .catch(error => console.log(error));
   }
 }
 

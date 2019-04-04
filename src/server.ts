@@ -14,5 +14,4 @@ const appOptions: Options = {
 };
 
 const handleListening = (): void => console.log(`Listening on http://localhost:${PORT} ✅`);
-
 app.start(appOptions, handleListening);

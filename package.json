@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:server": "set NODE_ENV=test&&nodemon --exec ts-node src/server.ts",
-    "dev": "set NODE_ENV=development&&nodemon --exec ts-node src/server.ts",
-    "test": "set NODE_ENV=test && jest --watchAll"
+    "dev": "set NODE_ENV=development&& nodemon --exec ts-node src/server.ts",
+    "test": "set NODE_ENV=test&& jest --watchAll"
   },
   "keywords": [],
   "author": "",
@@ -68,7 +67,6 @@
     "webpack": "^4.29.5"
   },
   "jest": {
-    "globalSetup": "./src/lib/testing/callSetup.js",
     "verbose": true,
     "moduleFileExtensions": [
       "js",
@@ -82,7 +80,9 @@
       "!**/node_modules/**",
       "!**/build/**",
       "!**/coverage/**",
-      "!**/src/lib/**"
+      "!**/src/typings/**",
+      "!**/src/app.ts",
+      "!**/src/server.ts"
     ],
     "transform": {
       "^.+\\.(tsx|ts)?$": "ts-jest"
@@ -109,7 +109,7 @@
       "/node_modules/",
       "/build/",
       "/coverage/",
-      "/src/lib/"
+      "/src/typings"
     ]
   }
 }
