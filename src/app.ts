@@ -1,65 +1,34 @@
-import Koa from 'koa';
-import helmet from 'koa-helmet';
-import morgan from 'koa-morgan';
-import compress from 'koa-compress';
-import body from 'koa-body';
-import cors from 'koa-cors';
-import session from 'koa-session';
-import routes from './routes';
-import database from './database/db';
+import { GraphQLServer } from 'graphql-yoga';
+import cors from 'cors';
+import helmet from 'helmet';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import compresion from 'compression';
+import schema from './schema';
 
-class Server {
-  public app: Koa;
-
+class App {
+  public app: GraphQLServer;
   constructor() {
-    this.app = new Koa();
-    this.initializeDb();
-    this.middleware();
-    this.routes();
+    this.app = new GraphQLServer({
+      schema
+    });
+    this.middlewares();
   }
 
-  private middleware() {
-    const { app } = this;
-
-    app.keys = ['social_token'];
-
-    app.use(cors());
-    app.use(session(app));
-    app.use(
-      body({
-        multipart: true,
-        formidable: {
-          keepExtensions: true
-        }
+  private middlewares = (): void => {
+    const {
+      app: { express }
+    } = this;
+    express.use(
+      compresion({
+        level: 6
       })
     );
-    app.use(
-      compress({
-        filter: contentType => {
-          return /text/i.test(contentType);
-        },
-        threshold: 2048,
-        flush: require('zlib').Z_SYNC_FLUSH
-      })
-    );
-    app.use(morgan('dev'));
-    app.use(helmet());
-  }
-
-  private async initializeDb(): Promise<void> {
-    if (process.env.NODE_ENV === 'test') {
-      await database.connectTest();
-    } else {
-      if (!database.connected) {
-        await database.connect();
-      }
-    }
-  }
-
-  private routes(): void {
-    const { app } = this;
-    app.use(routes.routes()).use(routes.allowedMethods());
-  }
+    express.use(cors());
+    express.use(logger('dev'));
+    express.use(helmet());
+    express.use(cookieParser());
+  };
 }
 
-export default new Server().app;
+export default new App().app;

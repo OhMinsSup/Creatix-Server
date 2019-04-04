@@ -1,29 +1,24 @@
 import {
   Entity,
   PrimaryGeneratedColumn,
+  Index,
   Column,
   CreateDateColumn,
-  UpdateDateColumn,
-  BaseEntity
+  UpdateDateColumn
 } from 'typeorm';
 
 @Entity()
-class Certification extends BaseEntity {
+class User {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column({
-    type: 'varchar',
-    nullable: true
-  })
-  public email: string;
+  @Index()
+  @Column({ unique: true, type: 'varchar' })
+  public username: string;
 
-  @Column({
-    type: 'varchar',
-    length: 255,
-    nullable: true
-  })
-  public code: string;
+  @Index()
+  @Column({ unique: true, type: 'varchar' })
+  public email: string;
 
   @Column('timestampz')
   @CreateDateColumn()
@@ -34,4 +29,4 @@ class Certification extends BaseEntity {
   public updated_at: Date;
 }
 
-export default Certification;
+export default User;
