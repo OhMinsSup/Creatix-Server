@@ -6,7 +6,7 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import compresion from 'compression';
 import schema from './schema';
-import { createDevConnection } from './lib/utils';
+import { createDevConnection } from './lib/connectdb';
 dotenv.config();
 
 class App {

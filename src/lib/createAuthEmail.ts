@@ -9,7 +9,7 @@ export const createAuthEmail = (registered: boolean, code: string) => {
         text: '회원가입'
       };
 
-  const subject = `Who ${keywords.text}`;
+  const subject = `creatix ${keywords.text}`;
   const body = `<a href="https://velog.io"><img src="https://images.velog.io/email-logo.png" style="display: block; width: 128px; margin: 0 auto;"/></a>
       <div style="max-width: 100%; width: 400px; margin: 0 auto; padding: 1rem; text-align: justify; background: #f8f9fa; border: 1px solid #dee2e6; box-sizing: border-box; border-radius: 4px; color: #868e96; margin-top: 0.5rem; box-sizing: border-box;">
         <b style="black">안녕하세요! </b>${

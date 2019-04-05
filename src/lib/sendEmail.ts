@@ -21,7 +21,7 @@ export const sendMail = ({
   from,
   subject,
   body
-}: Mail): Promise<nodemailer.SendMailOptions> => {
+}: Mail): Promise<nodemailer.SentMessageInfo> => {
   return new Promise((resolve, reject) => {
     const transporter = nodemailer.createTransport({
       service: 'Gmail',

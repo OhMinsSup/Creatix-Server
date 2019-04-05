@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "set NODE_ENV=development&& nodemon --exec ts-node src/server.ts",
-    "test": "set NODE_ENV=test&& jest --watchAll"
+    "test": "set NODE_ENV=test&& jest --watchAll -u"
   },
   "keywords": [],
   "author": "",
@@ -67,7 +67,7 @@
     "webpack": "^4.29.5"
   },
   "jest": {
-    "verbose": true,
+    "verbose": false,
     "moduleFileExtensions": [
       "js",
       "jsx",
@@ -81,8 +81,11 @@
       "!**/build/**",
       "!**/coverage/**",
       "!**/src/typings/**",
+      "!**/src/entity/**",
       "!**/src/app.ts",
-      "!**/src/server.ts"
+      "!**/src/server.ts",
+      "!**/src/schema.ts",
+      "!**/src/lib/connectdb.ts"
     ],
     "transform": {
       "^.+\\.(tsx|ts)?$": "ts-jest"
