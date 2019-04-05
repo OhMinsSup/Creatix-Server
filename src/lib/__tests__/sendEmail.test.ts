@@ -3,9 +3,8 @@ import { sendMail } from '../sendEmail';
 import { createAuthEmail } from '../createAuthEmail';
 
 // https://www.moakt.com/ko 을 통해서 가짜 이메일 가져온다
-const email = 'qjpm9ezr4@moakt.ws';
+const email = 'tx3eflk5u@tmpmail.net';
 const uuid = faker.random.uuid();
-const ENV = process.env;
 const emailTemplate = createAuthEmail(false, uuid);
 
 describe('Send Email Function', () => {

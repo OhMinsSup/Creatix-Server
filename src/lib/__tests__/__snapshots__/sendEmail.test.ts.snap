@@ -3,39 +3,19 @@
 exports[`Send Email Function 메일 보내기 1`] = `
 Object {
   "accepted": Array [
-    "qjpm9ezr4@moakt.ws",
+    "tx3eflk5u@tmpmail.net",
   ],
   "envelope": Object {
     "from": "verify@creatix.io",
     "to": Array [
-      "qjpm9ezr4@moakt.ws",
+      "tx3eflk5u@tmpmail.net",
     ],
   },
-  "envelopeTime": 750,
-  "messageId": "<43e020ef-a9b0-00e8-caee-59822f9615f8@creatix.io>",
-  "messageSize": 2454,
-  "messageTime": 818,
+  "envelopeTime": 768,
+  "messageId": "<63952cdd-3bea-588f-20cf-fa6a79decfbb@creatix.io>",
+  "messageSize": 2457,
+  "messageTime": 815,
   "rejected": Array [],
-  "response": "250 2.0.0 OK  1554445145 b7sm61330764pfj.67 - gsmtp",
-}
-`;
-
-exports[`Send Email Function 메일 보내기 실패 1`] = `
-Object {
-  "accepted": Array [
-    "public.veloss@naver.com",
-  ],
-  "envelope": Object {
-    "from": "verify@creatix.io",
-    "to": Array [
-      "public.veloss@naver.com",
-    ],
-  },
-  "envelopeTime": 761,
-  "messageId": "<705b4131-da87-919d-bc82-38eff0fa660f@creatix.io>",
-  "messageSize": 2459,
-  "messageTime": 785,
-  "rejected": Array [],
-  "response": "250 2.0.0 OK  1554445059 c3sm40568529pfg.88 - gsmtp",
+  "response": "250 2.0.0 OK  1554467734 25sm27022576pfo.96 - gsmtp",
 }
 `;

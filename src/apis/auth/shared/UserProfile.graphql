@@ -1,0 +1,12 @@
+scalar JSON
+
+type UserProfile {
+    id: ID!
+    short_bio: String
+    thumbnail: String
+    fk_user_id: String!
+    profile_links: JSON
+    user: [User]!
+    created_at: String
+    updated_at: String
+}

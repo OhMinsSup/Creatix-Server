@@ -1,0 +1,7 @@
+type SendAuthEmailResponse {
+    registered: Boolean
+}
+
+type Mutation {
+  SendAuthEmail(email: String!): SendAuthEmailResponse!
+}

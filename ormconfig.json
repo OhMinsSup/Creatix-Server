@@ -27,7 +27,7 @@
         "password": "1234",
         "database": "test_creatix",
         "synchronize": true,
-        "logging": false,
+        "logging": true,
         "dropSchema": true,
         "entities": ["src/entity/**/*.ts"],
         "migrations": ["src/migration/**/*.ts"],
