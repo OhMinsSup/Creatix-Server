@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "10.14" # node_js에 버전 10.14.1
 
-// 환경 변수 설정
+# 환경 변수 설정
 env:
   - EMAIL=$EMAIL
   - PASS=$PASS
