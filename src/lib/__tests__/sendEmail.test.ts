@@ -14,6 +14,9 @@ describe('Send Email Function', () => {
       ...emailTemplate,
       from: 'verify@creatix.io'
     });
-    expect(transporter).toMatchSnapshot();
+    expect(transporter.envelope).toEqual({
+      from: 'verify@creatix.io',
+      to: [email]
+    });
   });
 });

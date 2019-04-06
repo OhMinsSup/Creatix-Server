@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`회원 인증 이메일을 보내주면 해당 이메일에다가 이메일을 보낸다. 사용자가 회원 인증 이메일을 요청하면 회원가입 또는 로그인 인증 이메일을 보낸다. 1`] = `
-Object {
-  "registered": null,
-}
-`;

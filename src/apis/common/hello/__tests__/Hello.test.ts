@@ -1,7 +1,6 @@
-import faker from 'faker';
 import resolvers from '../Hello.resolvers';
 
-const username = faker.internet.userName();
+const username = 'Veloss';
 
 describe('Hello GraphQL', () => {
   test('Hello World Not Value Output', async () => {
@@ -14,7 +13,9 @@ describe('Hello GraphQL', () => {
         {},
         {}
       )
-    ).toMatchSnapshot();
+    ).toEqual({
+      result: 'Hello World'
+    });
   });
 
   test('Hello World Using Value Output', async () => {
@@ -27,6 +28,8 @@ describe('Hello GraphQL', () => {
         {},
         {}
       )
-    ).toMatchSnapshot();
+    ).toEqual({
+      result: `Hello ${username}`
+    });
   });
 });
