@@ -111,10 +111,10 @@
     ],
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts)x?$",
     "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/build/",
-      "/coverage/",
-      "/src/typings"
+      "<rootDir>/node_modules/",
+      "<rootDir>/build/",
+      "<rootDir>/coverage/",
+      "<rootDir>/src/typings"
     ]
   }
 }

@@ -18,6 +18,7 @@ cache:
 script:
   - npm test
 
+# 빌드 성공및 실패에 대한 알림을 받을 이메일
 notifications:
   email:
     recipients:
