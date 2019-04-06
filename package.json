@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "set NODE_ENV=development&&nodemon --exec ts-node src/server.ts",
-    "test": "set NODE_ENV=test&&jest --watchAll -u",
+    "test": "exit",
+    "jest:test": "set NODE_ENV=test&&jest --watchAll -u",
     "dev:test": "set NODE_ENV=test&&ts-node src/server.ts"
   },
   "keywords": [],
