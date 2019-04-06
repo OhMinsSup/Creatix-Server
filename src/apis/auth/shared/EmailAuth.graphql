@@ -1,0 +1,8 @@
+type EmailAuth {
+    id: ID!
+    code: String
+    email: String
+    logged: Boolean
+    created_at: String
+    updated_at: String
+}
