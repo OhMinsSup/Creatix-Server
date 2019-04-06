@@ -2,10 +2,15 @@ language: node_js
 node_js:
   - "10.14" # node_js에 버전 10.14.1
 
-# 환경 변수 설정
-env:
-  - EMAIL=$EMAIL
-  - PASS=$PASS
+# Jest에서 사용하는 테스트 코드는 graphql 사용시 
+# postgresql을 같이 사용하기 때문에 이용
+#services:
+#    postgresql: "10"
+
+# 로컬 postgresql 서버에 엑세스하기 위해서 작성
+# 응용 프로그램의 데이터베이스를 만듭니다.
+#before_script:
+#  - psql -c 'create database test_creatix;' -U postgres
 
 # Git 커밋을 한 내용중 수신 허용 목록을
 # 사용하여 분기를 포함하거나 차단 목록을 사용하여 분기를 제외하십시오.
