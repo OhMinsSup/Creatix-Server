@@ -14,7 +14,10 @@ class UserProfile {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column({ length: 255 })
+  @Column({ type: 'varchar', nullable: true })
+  public display_name: string;
+
+  @Column({ type: 'text', nullable: true })
   public short_bio: string;
 
   @Column({ type: 'text', nullable: true })

@@ -23,7 +23,8 @@ const resolvers: Resolvers = {
       // validate error
       if (result.error) {
         return {
-          registered: null
+          ok: false,
+          error: result.error.message
         };
       }
 
@@ -45,8 +46,8 @@ const resolvers: Resolvers = {
         const emailTemplate = createAuthEmail(!!user, emailAuth.code);
 
         // sendEmail
-        setImmediate(() => {
-          sendMail({
+        setImmediate(async () => {
+          await sendMail({
             to: email,
             ...emailTemplate,
             from: 'verify@creatix.io'
@@ -54,11 +55,14 @@ const resolvers: Resolvers = {
         });
 
         return {
+          ok: true,
+          error: null,
           registered: !!user
         };
       } catch (e) {
         return {
-          registered: null
+          ok: false,
+          error: e
         };
       }
     }

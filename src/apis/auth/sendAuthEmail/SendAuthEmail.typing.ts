@@ -3,5 +3,7 @@ export interface SendAuthEmailArgs {
 }
 
 export interface SendAuthEmailResponse {
-  registered: boolean | null;
+  ok: boolean;
+  error: any | null;
+  registered?: boolean;
 }

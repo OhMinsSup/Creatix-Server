@@ -1,4 +1,6 @@
 type SendAuthEmailResponse {
+    ok: Boolean!
+    error: String
     registered: Boolean
 }
 

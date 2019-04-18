@@ -1,0 +1,23 @@
+type CodeRegister {
+    email: String!
+    register_token: String!
+}
+
+type CodeLogin {
+    user: User!
+    profile: UserProfile!
+    access_token: String!
+    refresh_token: String!
+}
+
+
+type CodeResponse {
+    ok: Boolean!
+    error: String
+    registerResult: CodeRegister
+    loginResult: CodeLogin
+}
+
+type Mutation {
+  Code(code: String!): CodeResponse!
+}
