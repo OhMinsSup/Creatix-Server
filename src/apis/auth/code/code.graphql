@@ -1,13 +1,16 @@
 type CodeRegister {
-    email: String!
-    register_token: String!
+    email: String
+    register_token: String
 }
 
 type CodeLogin {
-    user: User!
-    profile: UserProfile!
-    access_token: String!
-    refresh_token: String!
+    id: String
+    username: String
+    email: String
+    display_name: String
+    thumbnail: String
+    access_token: String
+    refresh_token: String
 }
 
 
@@ -18,6 +21,6 @@ type CodeResponse {
     loginResult: CodeLogin
 }
 
-type Mutation {
+type Query {
   Code(code: String!): CodeResponse!
 }

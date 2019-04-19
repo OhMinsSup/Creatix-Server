@@ -12,23 +12,23 @@ import User from './User';
 @Entity()
 export default class AuthToken {
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  id: string;
 
   @Column('uuid')
-  fk_user_id!: string;
+  fk_user_id: string;
 
   @Column('timestampz')
   @CreateDateColumn()
-  created_at!: Date;
+  created_at: Date;
 
   @Column('timestamptz')
   @UpdateDateColumn()
-  updated_at!: Date;
+  updated_at: Date;
 
   @Column({ default: false })
-  disabled!: boolean;
+  disabled: boolean;
 
   @ManyToOne(type => User, user => user.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'fk_user_id' })
-  user!: User;
+  user: User;
 }

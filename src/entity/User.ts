@@ -13,23 +13,23 @@ import { generateToken } from '../lib/token';
 @Entity()
 class User {
   @PrimaryGeneratedColumn('uuid')
-  public id: string;
+  id: string;
 
   @Index()
   @Column({ unique: true, type: 'varchar' })
-  public username: string;
+  username: string;
 
   @Index()
   @Column({ unique: true, type: 'varchar' })
-  public email: string;
+  email: string;
 
   @Column('timestampz')
   @CreateDateColumn()
-  public created_at: Date;
+  created_at: Date;
 
   @Column('timestamptz')
   @UpdateDateColumn()
-  public updated_at: Date;
+  updated_at: Date;
 
   async generateUserToken() {
     const authToken = new AuthToken();

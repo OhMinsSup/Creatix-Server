@@ -14,12 +14,3 @@
 
 - Postgresql (DB 📃)
 
-- Jest (Test Framework 🎣)
-
-# URL structure design
-
- Docs 폴더에 있는 apis에서 작성
-
-# Data models structure design
-
- Docs 폴더에 있는 models에서 작성

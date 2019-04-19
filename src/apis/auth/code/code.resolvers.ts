@@ -8,7 +8,7 @@ import { Resolvers } from '../../../typings/resolvers';
 import { CodeResponse, CodeArgs } from './code.typing';
 
 const resolvers: Resolvers = {
-  Mutation: {
+  Query: {
     Code: async (_, args: CodeArgs, { res }: { res: Response }): Promise<CodeResponse> => {
       const { code } = args;
 
@@ -78,8 +78,11 @@ const resolvers: Resolvers = {
             ok: true,
             error: null,
             loginResult: {
-              user,
-              profile,
+              id: user.id,
+              username: user.username,
+              email: user.email,
+              display_name: profile.display_name,
+              thumbnail: profile.thumbnail,
               access_token: tokens.accessToken,
               refresh_token: tokens.refreshToken
             }

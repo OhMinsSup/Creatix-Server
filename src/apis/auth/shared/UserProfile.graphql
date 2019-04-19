@@ -2,6 +2,7 @@ scalar JSON
 
 type UserProfile {
     id: ID!
+    display_name: String
     short_bio: String
     thumbnail: String
     fk_user_id: String!

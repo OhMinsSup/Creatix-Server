@@ -1,6 +1,3 @@
-import UserProfile from 'src/entity/UserProfile';
-import User from 'src/entity/User';
-
 export interface CodeArgs {
   code: string;
 }
@@ -11,8 +8,11 @@ type CodeRegister = {
 };
 
 type CodeLogin = {
-  user: User;
-  profile: UserProfile;
+  id: string;
+  username: string;
+  email: string;
+  display_name: string;
+  thumbnail: string | null;
   access_token: string;
   refresh_token: string;
 };
