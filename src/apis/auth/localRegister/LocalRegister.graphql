@@ -1,0 +1,26 @@
+type Register {
+    id: String
+    username: String
+    email: String
+    display_name: String
+    thumbnail: String
+    access_token: String
+    refresh_token: String
+}
+
+type LocalRegisterResponse {
+    ok: Boolean!
+    error: String
+    payload: String
+    register: Register
+}
+
+input RegisterForm {
+    display_name: String!
+    username: String!
+    short_bio: String!
+}
+
+type Mutation {
+  LocalRegister(register_token: String!, form: RegisterForm!): LocalRegisterResponse!
+}
