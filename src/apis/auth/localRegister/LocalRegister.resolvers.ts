@@ -17,22 +17,18 @@ const resolvers: Resolvers = {
     ): Promise<LocalRegisterResponse> => {
       const schema = Joi.object().keys({
         register_token: Joi.string().required(),
-        form: Joi.object()
-          .keys({
-            display_name: Joi.string()
-              .min(1)
-              .max(45)
-              .required(),
-            username: Joi.string()
-              .regex(/^[a-z0-9-_]+$/)
-              .min(3)
-              .max(16)
-              .required(),
-            short_bio: Joi.string()
-              .allow('')
-              .max(140)
-          })
-          .required()
+        display_name: Joi.string()
+          .min(1)
+          .max(45)
+          .required(),
+        username: Joi.string()
+          .regex(/^[a-z0-9-_]+$/)
+          .min(3)
+          .max(16)
+          .required(),
+        short_bio: Joi.string()
+          .allow('')
+          .max(140)
       });
 
       const result = Joi.validate(args, schema);
@@ -51,10 +47,7 @@ const resolvers: Resolvers = {
         sub: string;
       };
 
-      const {
-        register_token,
-        form: { username, display_name, short_bio }
-      } = args;
+      const { register_token, username, display_name, short_bio } = args;
 
       let decoded: RegisterToken | null = null;
       try {

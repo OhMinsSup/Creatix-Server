@@ -1,10 +1,8 @@
 export interface LocalRegisterArgs {
   register_token: string;
-  form: {
-    display_name: string;
-    username: string;
-    short_bio: string;
-  };
+  display_name: string;
+  username: string;
+  short_bio: string;
 }
 
 export interface LocalRegisterResponse {

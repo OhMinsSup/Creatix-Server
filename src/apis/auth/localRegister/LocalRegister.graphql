@@ -15,12 +15,6 @@ type LocalRegisterResponse {
     register: Register
 }
 
-input RegisterForm {
-    display_name: String!
-    username: String!
-    short_bio: String!
-}
-
 type Mutation {
-  LocalRegister(register_token: String!, form: RegisterForm!): LocalRegisterResponse!
+  LocalRegister(register_token: String!, display_name: String!, username: String!, short_bio: String!): LocalRegisterResponse!
 }
