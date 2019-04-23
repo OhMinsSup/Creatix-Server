@@ -8,13 +8,18 @@ const GRAPHQL_ENDPOINT = '/graphql';
 const PLAYGROUND_ENDPOINT = '/playground';
 const SUBSCRIPTION_ENDPOINT: string = '/subscription';
 
+interface ConnectionParamsType {
+  access_token: string;
+  refresh_token: string;
+}
+
 const appOptions: Options = {
   port: PORT,
   playground: PLAYGROUND_ENDPOINT,
   endpoint: GRAPHQL_ENDPOINT,
   subscriptions: {
     path: SUBSCRIPTION_ENDPOINT,
-    onConnect: async connectionParams => {
+    onConnect: async (connectionParams: ConnectionParamsType) => {
       console.log(connectionParams);
     }
   }

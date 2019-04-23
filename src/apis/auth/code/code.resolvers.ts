@@ -70,8 +70,6 @@ const resolvers: Resolvers = {
           const tokens = await user.generateUserToken();
           emailAuth.logged = true;
           getRepository(EmailAuth).save(emailAuth);
-
-          // set Cookie
           setTokenCookie(res, tokens);
 
           return {

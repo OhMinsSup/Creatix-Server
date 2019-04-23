@@ -1,0 +1,17 @@
+type UserData {
+    id: String
+    username: String
+    email: String
+    display_name: String
+    thumbnail: String
+}
+
+
+type CheckUserResponse {
+    ok: Boolean!
+    error: String
+    user: UserData
+}
+type Query {
+    CheckUser: CheckUserResponse
+}

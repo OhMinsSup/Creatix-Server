@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import auth from './auth';
+import callback from './callback';
+import files from './files';
 
 const api = Router();
 
-api.use('/auth', auth);
+api.use('/callback', callback);
+api.use('/files', files);
 
 const router = Router();
 

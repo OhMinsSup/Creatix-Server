@@ -8,6 +8,7 @@ import compresion from 'compression';
 import schema from './schema';
 import routes from './routes';
 import { createDevConnection, createTestingConnection } from './lib/connectdb';
+import { consumeUser } from './lib/token';
 dotenv.config();
 
 class App {
@@ -41,6 +42,7 @@ class App {
     express.use(logger('dev'));
     express.use(helmet());
     express.use(cookieParser());
+    express.use(consumeUser);
     express.use(routes);
   };
 

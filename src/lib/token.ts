@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import { Response } from 'express';
+import { Response, Request, NextFunction } from 'express';
+import { getRepository } from 'typeorm';
+import User from '../entity/User';
 dotenv.config();
 
 const { SECRET_KEY } = process.env;
@@ -52,3 +54,66 @@ export function setTokenCookie(
     maxAge: 1000 * 60 * 60 * 24 * 30
   });
 }
+
+type TokenData = {
+  iat: number;
+  exp: number;
+  sub: string;
+  iss: string;
+};
+
+type AccessTokenData = {
+  user_id: string;
+} & TokenData;
+
+type RefreshTokenData = {
+  user_id: string;
+  token_id: string;
+} & TokenData;
+
+export const refresh = async (req: Request, res: Response, refreshToken: string) => {
+  try {
+    const decoded = await decodeToken<RefreshTokenData>(refreshToken);
+    const user = await getRepository(User).findOne(decoded.user_id);
+    if (!user) {
+      const error = new Error('InvalidUserError');
+      throw error;
+    }
+    const tokens = await user.refreshUserToken(decoded.token_id, decoded.exp, refreshToken);
+    setTokenCookie(res, tokens);
+    return decoded.user_id;
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const consumeUser = async (req: Request, res: Response, next: NextFunction) => {
+  let accessToken: string | undefined = req.cookies.access_token;
+  let refreshToken: string | undefined = req.cookies.refresh_token;
+
+  const { authorization } = req.headers;
+  if (!accessToken && authorization) {
+    accessToken = authorization.split(' ')[1];
+  }
+
+  if (!accessToken) {
+    (req as any).user_id = null;
+    return;
+  }
+
+  try {
+    const accessTokenData = await decodeToken<AccessTokenData>(accessToken);
+    (req as any).user_id = accessTokenData.user_id;
+    const diff = accessTokenData.exp * 1000 - new Date().getTime();
+    if (diff < 1000 * 60 * 30 && refreshToken) {
+      await refresh(req, res, refreshToken);
+    }
+  } catch (e) {
+    if (!refreshToken) return;
+    try {
+      const userId = await refresh(req, res, refreshToken);
+      (req as any).user_id = userId;
+    } catch (e) {}
+  }
+  next();
+};
