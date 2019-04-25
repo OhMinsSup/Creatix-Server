@@ -10,7 +10,7 @@ import {
 import User from './User';
 
 @Entity()
-export default class AuthToken {
+class AuthToken {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -32,3 +32,5 @@ export default class AuthToken {
   @JoinColumn({ name: 'fk_user_id' })
   user: User;
 }
+
+export default AuthToken

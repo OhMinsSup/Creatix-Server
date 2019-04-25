@@ -17,11 +17,17 @@ const appOptions: Options = {
   port: PORT,
   playground: PLAYGROUND_ENDPOINT,
   endpoint: GRAPHQL_ENDPOINT,
+  cors: {
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:4000/graphql',
+      'http://localhost:4000/playground'
+    ],
+    credentials: true
+  },
   subscriptions: {
     path: SUBSCRIPTION_ENDPOINT,
-    onConnect: async (connectionParams: ConnectionParamsType) => {
-      console.log(connectionParams);
-    }
+    onConnect: async (connectionParams: ConnectionParamsType) => {}
   }
 };
 

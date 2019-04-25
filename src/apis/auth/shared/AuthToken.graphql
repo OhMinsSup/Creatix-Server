@@ -1,0 +1,7 @@
+type AuthToken {
+    id: ID!
+    fk_user_id: String!
+    disabled: Boolean!
+    created_at: String
+    updated_at: String
+}

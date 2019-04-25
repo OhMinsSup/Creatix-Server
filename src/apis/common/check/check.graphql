@@ -1,0 +1,7 @@
+type CheckResponse {
+  result: String
+}
+
+type Query {
+  Check: CheckResponse!
+}

@@ -43,7 +43,7 @@ export const decodeToken = <T = any>(token: string): Promise<T> => {
 
 export function setTokenCookie(
   res: Response,
-  tokens: { accessToken: string; refreshToken: string }
+  tokens: { accessToken: string | null; refreshToken: string | null }
 ) {
   res.cookie('access_token', tokens.accessToken, {
     httpOnly: true,
@@ -88,8 +88,8 @@ export const refresh = async (req: Request, res: Response, refreshToken: string)
 };
 
 export const consumeUser = async (req: Request, res: Response, next: NextFunction) => {
-  let accessToken: string | undefined = req.cookies.access_token;
-  let refreshToken: string | undefined = req.cookies.refresh_token;
+  let accessToken: string | undefined = req.cookies['access_token'];
+  let refreshToken: string | undefined = req.cookies['refresh_token'];
 
   const { authorization } = req.headers;
   if (!accessToken && authorization) {
@@ -97,23 +97,25 @@ export const consumeUser = async (req: Request, res: Response, next: NextFunctio
   }
 
   if (!accessToken) {
-    (req as any).user_id = null;
-    return;
+    req['user_id'] = null;
+    return next();
   }
 
   try {
     const accessTokenData = await decodeToken<AccessTokenData>(accessToken);
-    (req as any).user_id = accessTokenData.user_id;
+    req['user_id'] = accessTokenData.user_id;
     const diff = accessTokenData.exp * 1000 - new Date().getTime();
     if (diff < 1000 * 60 * 30 && refreshToken) {
       await refresh(req, res, refreshToken);
     }
   } catch (e) {
-    if (!refreshToken) return;
+    if (!refreshToken) return next();
     try {
       const userId = await refresh(req, res, refreshToken);
-      (req as any).user_id = userId;
-    } catch (e) {}
+      req['user_id'] = userId;
+    } catch (e) {
+      throw e;
+    }
   }
   next();
 };

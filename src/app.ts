@@ -6,8 +6,7 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import compresion from 'compression';
 import schema from './schema';
-import routes from './routes';
-import { createDevConnection, createTestingConnection } from './lib/connectdb';
+import { createDevConnection } from './lib/connectdb';
 import { consumeUser } from './lib/token';
 dotenv.config();
 
@@ -16,12 +15,10 @@ class App {
   constructor() {
     this.app = new GraphQLServer({
       schema,
-      context: req => {
-        const { connection: { context = null } = {} } = req;
+      context: contextParams => {
         return {
-          res: req.response,
-          req: req.request,
-          context
+          req: contextParams.request,
+          res: contextParams.response
         };
       }
     });
@@ -38,30 +35,29 @@ class App {
         level: 6
       })
     );
-    express.use(cors());
+    express.use(
+      cors({
+        origin: [
+          'http://localhost:3000',
+          'http://localhost:4000/graphql',
+          'http://localhost:4000/playground'
+        ],
+        credentials: true
+      })
+    );
     express.use(logger('dev'));
     express.use(helmet());
     express.use(cookieParser());
     express.use(consumeUser);
-    express.use(routes);
   };
 
   private initiallizeDB() {
-    if (process.env.NODE_ENV === 'test') {
-      createTestingConnection()
-        .then(() => {
-          console.log('Creatix Testing Database Conntection ✅');
-          console.log('Postgres Testing RDBMS connection is established ✅');
-        })
-        .catch(error => console.log(error));
-    } else if (process.env.NODE_ENV === 'development') {
-      createDevConnection()
-        .then(() => {
-          console.log('Creatix Database Conntection ✅');
-          console.log('Postgres RDBMS connection is established ✅');
-        })
-        .catch(error => console.log(error));
-    }
+    createDevConnection()
+      .then(() => {
+        console.log('Creatix Database Conntection ✅');
+        console.log('Postgres RDBMS connection is established ✅');
+      })
+      .catch(error => console.log(error));
   }
 }
 

@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { getRepository } from 'typeorm';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { Resolvers } from '../../../typings/resolvers';
 import { LocalRegisterArgs, LocalRegisterResponse } from './LocalRegister.typing';
 import { decodeToken, setTokenCookie } from '../../../lib/token';
@@ -13,7 +13,7 @@ const resolvers: Resolvers = {
     LocalRegister: async (
       _,
       args: LocalRegisterArgs,
-      { res }: { res: Response }
+      { res, req }: { res: Response; req: Request }
     ): Promise<LocalRegisterResponse> => {
       const schema = Joi.object().keys({
         register_token: Joi.string().required(),
