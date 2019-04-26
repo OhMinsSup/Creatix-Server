@@ -1,0 +1,7 @@
+type LogOutResponse {
+    ok: Boolean!
+}
+
+type Mutation {
+  LogOut: LogOutResponse!
+}
