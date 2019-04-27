@@ -1,0 +1,122 @@
+type UserData {
+  id: String
+  username: String
+  email: String
+  display_name: String
+  thumbnail: String
+}
+
+type CheckUserResponse {
+  ok: Boolean!
+  error: String
+  user: UserData
+}
+
+type Query {
+  CheckUser: CheckUserResponse
+  Code(code: String!): CodeResponse!
+  Check: CheckResponse!
+  Hello(name: String): HelloResponse!
+}
+
+type CodeRegister {
+  email: String
+  register_token: String
+}
+
+type CodeLogin {
+  id: String
+  username: String
+  email: String
+  display_name: String
+  thumbnail: String
+  access_token: String
+  refresh_token: String
+}
+
+type CodeResponse {
+  ok: Boolean!
+  error: String
+  registerResult: CodeRegister
+  loginResult: CodeLogin
+}
+
+type Register {
+  id: String
+  username: String
+  email: String
+  display_name: String
+  thumbnail: String
+  access_token: String
+  refresh_token: String
+}
+
+type LocalRegisterResponse {
+  ok: Boolean!
+  error: String
+  payload: String
+  register: Register
+}
+
+type Mutation {
+  LocalRegister(register_token: String!, display_name: String!, username: String!, short_bio: String!): LocalRegisterResponse!
+  LogOut: LogOutResponse!
+  SendAuthEmail(email: String!): SendAuthEmailResponse!
+}
+
+type LogOutResponse {
+  ok: Boolean!
+}
+
+type SendAuthEmailResponse {
+  ok: Boolean!
+  error: String
+  registered: Boolean
+}
+
+type AuthToken {
+  id: ID!
+  fk_user_id: String!
+  disabled: Boolean!
+  created_at: String
+  updated_at: String
+}
+
+type EmailAuth {
+  id: ID!
+  code: String
+  email: String
+  logged: Boolean
+  created_at: String
+  updated_at: String
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  created_at: String
+  updated_at: String
+}
+
+scalar JSON
+
+type UserProfile {
+  id: ID!
+  display_name: String
+  short_bio: String
+  thumbnail: String
+  fk_user_id: String!
+  profile_links: JSON
+  user: [User]!
+  created_at: String
+  updated_at: String
+}
+
+type CheckResponse {
+  result: String
+}
+
+type HelloResponse {
+  result: String
+}

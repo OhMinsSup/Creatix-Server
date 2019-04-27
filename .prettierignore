@@ -1,2 +1,4 @@
 ormconfig.json
 .travis.yml
+.appspec.yml
+deploy.sh
