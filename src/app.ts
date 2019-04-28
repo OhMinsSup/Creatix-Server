@@ -6,7 +6,7 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import compresion from 'compression';
 import schema from './schema';
-import { createDevConnection } from './lib/connectdb';
+import { createConnect } from './lib/connectdb';
 import { consumeUser } from './lib/token';
 dotenv.config();
 
@@ -52,7 +52,7 @@ class App {
   };
 
   private initiallizeDB() {
-    createDevConnection()
+    createConnect()
       .then(() => {
         console.log('Creatix Database Conntection ✅');
         console.log('Postgres RDBMS connection is established ✅');

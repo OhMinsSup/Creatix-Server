@@ -43,7 +43,7 @@ export const decodeToken = <T = any>(token: string): Promise<T> => {
 
 export function setTokenCookie(
   res: Response,
-  tokens: { accessToken?: string; refreshToken?: string }
+  tokens: { accessToken: string; refreshToken: string }
 ) {
   res.cookie('access_token', tokens.accessToken, {
     httpOnly: true,

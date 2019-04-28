@@ -3,7 +3,7 @@
       "baseUrl": ".",
       "outDir": "dist",
       "module": "commonjs",
-      "target": "es5",
+      "target": "es2017",
       "lib": ["es6", "dom", "esnext.asynciterable"],
       "allowJs": true,
       "moduleResolution": "node",

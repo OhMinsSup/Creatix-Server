@@ -8,6 +8,7 @@
     "types": "graphql-to-typescript ./src/schema.graphql ./src/typings/graph.d.ts",
     "build:types": "npm run pretypes && npm run types",
     "build": "rimraf ./dist && tsc && copyfiles -u 1 src/apis/**/*.graphql dist",
+    "start": "node ./dist/server.js",
     "dev": "set NODE_ENV=development&&nodemon --exec ts-node src/server.ts",
     "test": "exit"
   },

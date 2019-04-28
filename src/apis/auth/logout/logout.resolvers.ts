@@ -6,7 +6,11 @@ import { LogOutResponse } from './logout.typing';
 const resolvers: Resolvers = {
   Mutation: {
     LogOut: privateResolver(
-      async (_, __, { req, res }: { req: Request; res: Response }): Promise<LogOutResponse> => {
+      async (
+        _: any,
+        __: any,
+        { res }: { req: Request; res: Response }
+      ): Promise<LogOutResponse> => {
         res.clearCookie('access_token');
         res.clearCookie('refresh_token');
         return {

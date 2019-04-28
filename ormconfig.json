@@ -1,6 +1,5 @@
 [
     {
-        "name": "development",
         "type": "postgres",
         "host": "localhost",
         "port": 5432,
@@ -8,11 +7,9 @@
         "password": "1234",
         "database": "creatix",
         "synchronize": true,
-        "logging": true,
-        "dropSchema": true,
-        "entities": ["src/entity/**/*.ts"],
-        "migrations": ["src/migration/**/*.ts"],
-        "subscribers": ["src/subscriber/**/*.ts"],
+        "entities": ["src/entity/**/*.js"],
+        "migrations": ["src/migration/**/*.js"],
+        "subscribers": ["src/subscriber/**/*.js"],
         "cli": {
             "entitiesDir": "src/entity",
             "migrationsDir": "src/migration",
@@ -20,7 +17,7 @@
         }
     },
     {
-        "name": "test",
+        "name": "development",
         "type": "postgres",
         "host": "localhost",
         "port": 5432,
