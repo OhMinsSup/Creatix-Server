@@ -5,11 +5,22 @@
 > 이 프로젝트는 오픈소스로 진행 됩니다.
 
 # On the backend:
- - Koa - Typescript (GraphQL Server ❤️)
+- Graphql-Yoga
+    * Express
+    * Typescript 
+    * GraphQL
 
-- Typeorm - Typescript (ORM 💪🏻)
+- Typeorm 
+    * PostGresql 
+    * ORM
 
-- JWT (Auth 🔑)
+- JWT 
+    * Auth
 
-- Postgresql (DB 📃)
+- CI/CD
+    * Travis CI (CI/CD)
 
+- AWS 
+    * S3 
+    * CodeDeploy
+    * EC2

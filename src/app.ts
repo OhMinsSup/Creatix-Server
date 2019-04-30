@@ -45,7 +45,11 @@ class App {
         credentials: true
       })
     );
-    express.use(logger('dev'));
+
+    if (process.env.NODE_ENV === 'development') {
+      express.use(logger('dev'));
+    }
+
     express.use(helmet());
     express.use(cookieParser());
     express.use(consumeUser);
@@ -54,8 +58,8 @@ class App {
   private initiallizeDB() {
     createConnect()
       .then(() => {
-        console.log('Creatix Database Conntection ✅');
-        console.log('Postgres RDBMS connection is established ✅');
+        console.log(`${process.env.NODE_ENV} Creatix Database Conntection ✅`);
+        console.log(`${process.env.NODE_ENV} Postgres RDBMS connection is established ✅`);
       })
       .catch(error => console.log(error));
   }

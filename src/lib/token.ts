@@ -55,6 +55,11 @@ export function setTokenCookie(
   });
 }
 
+export function setClearTokenCookie(res: Response) {
+  res.clearCookie('access_token');
+  res.clearCookie('refresh_token');
+}
+
 type TokenData = {
   iat: number;
   exp: number;

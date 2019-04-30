@@ -18,6 +18,36 @@ cache:
 script:
   - npm test
 
+before_deploy:
+  - npm run build
+
+deploy:
+  - provider: s3 # AWS S3를 의미
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: veloss-creatix-api-deploy # S3에 생성한 버킷
+    region: ap-northeast-2
+    skip_cleanup: true 
+    local_dir: dist # deploy 디렉터리에 있는 파일을 s3로 업로드 하겠다는 의미
+    wait-until-deployed: true
+    on: &1 # 중복 작업
+      repo: OhMinsSup/creatix-server #Github 주소
+      branch: master
+#  - provider: codedeploy # AWS CodeDeploy를 의미
+#    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+#    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+#    bucket: veloss-creatix-api-deploy # S3에 생성한 버킷
+#    key: creatix-server.zip # 해당 버킷에 저장되어 있는 파일 이름
+#    bundle_type: zip # 버킷에 저장되어 있는 파일의 확장자
+#    application: creatix-server-api-code-deploy-service # AWS 배포 애플리케이션
+#    deployment_group: creatix-server-api-group # AWS 배포 애플리케이션에 만들어져 있는 배포 그룹
+#    region: ap-northeast-2
+#    wait-until-deployed: true
+#    on: *1
+#      repo: OhMinsSup/creatix-server #Github 주소
+#      branch: master
+
+
 # 빌드 성공및 실패에 대한 알림을 받을 이메일
 notifications:
   email:
