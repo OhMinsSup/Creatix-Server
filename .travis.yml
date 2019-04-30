@@ -20,7 +20,7 @@ script:
 
 before_deploy:
   # 현재 위치의 모든 파일을 creatix-server이름으로 압축(zip)
-  - zip -r creatix-server
+  - zip -r creatix-server *
   # deploy라는 디렉토리를 Travis CI가 실행중인 위치에서 생성
   - mkdir -p deploy
   # creatix-server.zip 파일을 deploy/creatix-server.zip로 이동
