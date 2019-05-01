@@ -6,8 +6,8 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import compresion from 'compression';
 import schema from './schema';
-import { createConnect } from './lib/connectdb';
 import { consumeUser } from './lib/token';
+import { createConnect } from './lib/connectdb';
 dotenv.config();
 
 class App {
@@ -55,13 +55,13 @@ class App {
     express.use(consumeUser);
   };
 
-  private initiallizeDB() {
-    createConnect()
-      .then(() => {
-        console.log(`${process.env.NODE_ENV} Creatix Database Conntection ✅`);
-        console.log(`${process.env.NODE_ENV} Postgres RDBMS connection is established ✅`);
-      })
-      .catch(error => console.log(error));
+  private async initiallizeDB() {
+    try {
+      await createConnect();
+      console.log(`${process.env.NODE_ENV} Postgres RDBMS connection is established ✅`);
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 
