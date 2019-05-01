@@ -7,7 +7,8 @@ import cookieParser from 'cookie-parser';
 import compresion from 'compression';
 import schema from './schema';
 import { consumeUser } from './lib/token';
-import { createConnect } from './lib/connectdb';
+import { createConnect, createConnectProd } from './connectdb';
+
 dotenv.config();
 
 class App {
@@ -57,7 +58,11 @@ class App {
 
   private async initiallizeDB() {
     try {
-      await createConnect();
+      if (process.env.NODE_ENV === 'production') {
+        await createConnectProd();
+      } else {
+        await createConnect();
+      }
       console.log(`${process.env.NODE_ENV} Postgres RDBMS connection is established ✅`);
     } catch (e) {
       console.log(e);
