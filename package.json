@@ -9,7 +9,7 @@
     "build:types": "npm run pretypes && npm run types",
     "build": "rimraf ./build && tsc && copyfiles -u 1 src/apis/**/*.graphql build",
     "postinstall": "npm run build",
-    "start": "set NODE_ENV=production&&node ./build/server.js",
+    "start": "set NODE_ENV=production&& node build/server.js",
     "dev": "set NODE_ENV=development&&nodemon --exec ts-node src/server.ts",
     "test": "exit"
   },
@@ -20,6 +20,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+  },
+  "dependencies": {
     "@types/compression": "0.0.36",
     "@types/cookie-parser": "^1.4.1",
     "@types/cors": "^2.8.4",
@@ -50,9 +52,7 @@
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
     "typeorm": "^0.2.13",
-    "typescript": "^3.3.3"
-  },
-  "dependencies": {
+    "typescript": "^3.3.3",
     "@octokit/rest": "^16.16.0",
     "axios": "^0.18.0",
     "compression": "^1.7.4",
