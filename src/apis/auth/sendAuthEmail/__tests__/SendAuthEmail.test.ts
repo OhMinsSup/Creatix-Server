@@ -1,11 +1,27 @@
 import { Connection, getRepository } from 'typeorm';
-import { createConnect } from '../../../../connectdb';
 import SendAuthEamilResolver from '../SendAuthEmail.resolvers';
 import User from '../../../../entity/User';
+import {
+  createDatabase,
+  clearDatabase,
+  getEntities,
+  closeDatabase
+} from '../../../../../test/helper';
 
 describe('SendAuthEmail', () => {
   let connection: Connection;
-  const email = 's0ob1kfsb@tmails.net';
+
+  beforeAll(async () => {
+    connection = await createDatabase();
+  });
+
+  afterAll(async () => {
+    const entities = await getEntities(connection);
+    await clearDatabase(entities, connection);
+    await closeDatabase(connection);
+  });
+
+  const email = 'avidrp8cm@disbox.net';
   const obj = {};
   const ctx = {};
   const info = {};
@@ -19,14 +35,6 @@ describe('SendAuthEmail', () => {
     );
     return obj;
   }
-
-  beforeAll(async () => {
-    connection = await createConnect(true);
-  });
-
-  afterAll(async () => {
-    connection.close();
-  });
 
   it('Email is not entered or format is wrong', async () => {
     const args = setEmail();

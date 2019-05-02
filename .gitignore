@@ -1,6 +1,7 @@
 node_modules
 .env
 .env.development
+.coveralls.yml
 dist
 build
 ormconfig.json

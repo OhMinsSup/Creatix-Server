@@ -8,6 +8,9 @@ describe('LogOut', () => {
     const ctx = {
       req: {
         user_id: faker.random.uuid()
+      },
+      res: {
+        clearCookie: () => {}
       }
     };
     const info = {};

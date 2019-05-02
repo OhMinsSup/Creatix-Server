@@ -8,20 +8,22 @@
 > 이 프로젝트는 오픈소스로 진행 됩니다.
 
 # On the backend:
-- Graphql-Yoga
-    * Express
-    * Typescript 
-    * GraphQL
+- Server
+    * [Express](https://expressjs.com/ko/)
 
-- Typeorm 
-    * PostGresql 
-    * ORM
+    * [Typescript](https://www.typescriptlang.org/) 
 
-- JWT 
-    * Auth
+    * [GraphQL-Yoga](https://github.com/prisma/graphql-yoga)
+
+- ORM
+    * [PostGresql](https://www.postgresql.org/)
+    * [TypeORM](https://github.com/typeorm/typeorm)
 
 - CI/CD
-    * Travis CI (CI/CD)
+    * [Travis CI (CI/CD)](https://travis-ci.org/)
 
 - Deploy
-    * Heroku
+    * [Heroku](https://www.heroku.com/)
+
+- Testing
+    * [jest](https://jestjs.io/)

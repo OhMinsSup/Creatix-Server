@@ -11,8 +11,8 @@
     "postinstall": "npm run build",
     "start": "set NODE_ENV=production&& node build/server.js",
     "dev": "set NODE_ENV=development&&nodemon --exec ts-node src/server.ts",
-    "test": "set NODE_ENV=test&& exit",
-    "test:dev": "set NODE_ENV=test&&jest --watchAll"
+    "test": "set NODE_ENV=test&&exit",
+    "test:dev": "set NODE_ENV=test&&jest --watchAll -u"
   },
   "engines": {
     "node": "10.x"
