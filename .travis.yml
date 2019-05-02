@@ -28,7 +28,9 @@ deploy:
   api-key:
     secure: $HEROKU_API_KEY
   app: creatix-api-server
-
+  on:
+    repo: OhMinsSup/creatix-server
+    branch: master
 
 # 빌드 성공및 실패에 대한 알림을 받을 이메일
 notifications:
