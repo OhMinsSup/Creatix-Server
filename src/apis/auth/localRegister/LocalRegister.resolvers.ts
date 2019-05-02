@@ -37,7 +37,7 @@ const resolvers: Resolvers = {
       if (result.error) {
         return {
           ok: false,
-          error: result.error.message
+          error: '404_LOCAL_REGISTER_FORM_VALIDATION_ERROR'
         };
       }
 
@@ -70,6 +70,7 @@ const resolvers: Resolvers = {
         .createQueryBuilder()
         .where('email = :email OR username = :username', { email, username })
         .getOne();
+
       if (exists) {
         return {
           ok: false,

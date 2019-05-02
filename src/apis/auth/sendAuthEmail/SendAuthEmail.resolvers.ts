@@ -24,7 +24,7 @@ const resolvers: Resolvers = {
       if (result.error) {
         return {
           ok: false,
-          error: result.error.message
+          error: '404_EMAIL_NOT_MATCH_FORMAT'
         };
       }
 
@@ -60,10 +60,7 @@ const resolvers: Resolvers = {
           registered: !!user
         };
       } catch (e) {
-        return {
-          ok: false,
-          error: e
-        };
+        throw new Error(e);
       }
     }
   }

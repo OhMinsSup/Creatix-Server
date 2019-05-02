@@ -2,9 +2,9 @@ import { getConnectionOptions, createConnection } from 'typeorm';
 import dotenv from 'dotenv';
 dotenv.config();
 
-export const createConnect = async () => {
+export const createConnect = async (dropSchema: boolean = false) => {
   const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
-  return createConnection({ ...connectionOptions, name: 'default' });
+  return createConnection({ ...connectionOptions, name: 'default', dropSchema });
 };
 
 export const createConnectProd = async () => {

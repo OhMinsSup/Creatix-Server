@@ -1,6 +1,7 @@
 import './env';
 import { Options } from 'graphql-yoga';
 import app from './app';
+import { isDevClient, isDevServer } from './lib/utils';
 
 const PORT: number | string = process.env.PORT || 4000;
 const GRAPHQL_ENDPOINT = '/graphql';
@@ -17,11 +18,7 @@ const appOptions: Options = {
   playground: PLAYGROUND_ENDPOINT,
   endpoint: GRAPHQL_ENDPOINT,
   cors: {
-    origin: [
-      'http://localhost:3000',
-      'http://localhost:4000/graphql',
-      'http://localhost:4000/playground'
-    ],
+    origin: [isDevClient, isDevServer, 'http://localhost:4000/playground'],
     credentials: true
   },
   subscriptions: {
