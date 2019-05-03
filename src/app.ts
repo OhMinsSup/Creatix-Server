@@ -8,7 +8,7 @@ import compresion from 'compression';
 import schema from './schema';
 import { consumeUser } from './lib/token';
 import { createConnect, createConnectProd } from './connectdb';
-import { isDevClient, isDevServer } from './lib/utils';
+import { isDevClient, isDevServer, isPlayground } from './lib/utils';
 
 dotenv.config();
 
@@ -39,7 +39,7 @@ class App {
     );
     express.use(
       cors({
-        origin: [isDevClient, isDevServer, 'http://localhost:4000/playground'],
+        origin: [isDevClient, isDevServer, isPlayground],
         credentials: true
       })
     );

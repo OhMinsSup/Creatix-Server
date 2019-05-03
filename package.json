@@ -95,12 +95,7 @@
       "!**/node_modules/**",
       "!**/build/**",
       "!**/coverage/**",
-      "!**/src/typings/**",
-      "!**/src/entity/**",
-      "!**/src/app.ts",
-      "!**/src/server.ts",
-      "!**/src/schema.ts",
-      "!**/src/lib/connectdb.ts"
+      "!**/src/typings/**"
     ],
     "transform": {
       "^.+\\.(tsx|ts)?$": "ts-jest"
