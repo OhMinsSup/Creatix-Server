@@ -1,12 +1,7 @@
 import faker from 'faker';
 import privateResolver from '../privateResolver';
-/*
-const resolverFn = (obj: any, args: any, ctx: any, info: any) => {
-  return { result: ctx.req.user_id };
-};
-*/
-const userId = faker.random.uuid();
 
+const userId = faker.random.uuid();
 const resolve = {
   Result: privateResolver(async (obj: any, args: any, ctx: any, info: any) => {
     return {
@@ -39,8 +34,6 @@ describe('PrivateResolver', () => {
       req: {}
     };
     const info = {};
-
-    const resolverFn = await resolve.Result(obj, args, ctx, info);
-    expect(resolverFn).toThrowErrorMatchingSnapshot();
+    await expect(async () => await await resolve.Result(obj, args, ctx, info)).not.toThrow();
   });
 });

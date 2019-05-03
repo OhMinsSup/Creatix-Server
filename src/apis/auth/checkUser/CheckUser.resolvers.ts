@@ -53,11 +53,7 @@ const resolvers: Resolvers = {
             user: userData
           };
         } catch (e) {
-          return {
-            ok: false,
-            error: e,
-            user: null
-          };
+          throw new Error(e);
         }
       }
     )

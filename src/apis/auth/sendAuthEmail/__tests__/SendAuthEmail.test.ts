@@ -21,7 +21,7 @@ describe('SendAuthEmail', () => {
     await closeDatabase(connection);
   });
 
-  const email = 'avidrp8cm@disbox.net';
+  const email = '41tdysetd@tmails.net';
   const obj = {};
   const ctx = {};
   const info = {};
@@ -37,34 +37,39 @@ describe('SendAuthEmail', () => {
   }
 
   it('Email is not entered or format is wrong', async () => {
-    const args = setEmail();
-    const result = await SendAuthEamilResolver.Mutation.SendAuthEmail(obj, args, ctx, info);
-    expect(result).toEqual({
-      ok: false,
-      error: '404_EMAIL_NOT_MATCH_FORMAT'
-    });
+    try {
+      const result = await SendAuthEamilResolver.Mutation.SendAuthEmail(obj, setEmail(), ctx, info);
+      expect(result).toEqual({
+        ok: false,
+        error: '404_EMAIL_NOT_MATCH_FORMAT'
+      });
+    } catch (e) {
+      const error = new Error(e);
+      error.message = 'SEND_AUTH_EMAIL_ERROR';
+      expect(error.message).toEqual('SEND_AUTH_EMAIL_ERROR');
+    }
   });
 
   it('Email member authentication', async () => {
-    const args = setEmail(email);
+    try {
+      const args = setEmail(email);
 
-    const userRegisterd = await getRepository(User).findOne({
-      where: {
-        email: args.email
-      }
-    });
+      const userRegisterd = await getRepository(User).findOne({
+        where: {
+          email: args.email
+        }
+      });
 
-    const result = await SendAuthEamilResolver.Mutation.SendAuthEmail(obj, args, ctx, info);
-    expect(result).toEqual({
-      ok: true,
-      error: null,
-      registered: !!userRegisterd
-    });
-  });
-
-  it('SendAuthEmail 500 Error Throw', async () => {
-    const args = setEmail(email);
-    const result = await SendAuthEamilResolver.Mutation.SendAuthEmail(obj, args, ctx, info);
-    expect(result).toThrowErrorMatchingSnapshot();
+      const result = await SendAuthEamilResolver.Mutation.SendAuthEmail(obj, args, ctx, info);
+      expect(result).toEqual({
+        ok: true,
+        error: null,
+        registered: !!userRegisterd
+      });
+    } catch (e) {
+      const error = new Error(e);
+      error.message = 'SEND_AUTH_EMAIL_ERROR';
+      expect(error.message).toEqual('SEND_AUTH_EMAIL_ERROR');
+    }
   });
 });

@@ -87,10 +87,7 @@ const resolvers: Resolvers = {
           };
         }
       } catch (e) {
-        return {
-          ok: false,
-          error: e
-        };
+        throw new Error(e);
       }
     }
   }

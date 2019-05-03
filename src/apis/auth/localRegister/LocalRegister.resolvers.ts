@@ -59,61 +59,64 @@ const resolvers: Resolvers = {
           };
         }
       } catch (e) {
-        return {
-          ok: false,
-          error: '400_INVALID_TOKEN'
-        };
+        const error = new Error(e);
+        error.message = '400_INVALID_TOKEN';
+        throw error;
       }
 
-      const { email, id: codeId } = decoded;
-      const exists = await getRepository(User)
-        .createQueryBuilder()
-        .where('email = :email OR username = :username', { email, username })
-        .getOne();
+      try {
+        const { email, id: codeId } = decoded;
+        const exists = await getRepository(User)
+          .createQueryBuilder()
+          .where('email = :email OR username = :username', { email, username })
+          .getOne();
 
-      if (exists) {
-        return {
-          ok: false,
-          error: '409_ALREADY_EXISTS',
-          payload: email === exists.email ? 'email' : 'username'
-        };
-      }
-
-      const emailAuthRepo = getRepository(EmailAuth);
-      const emailAuth = await emailAuthRepo.findOne(codeId);
-      if (emailAuth) {
-        emailAuth.logged = true;
-        await emailAuthRepo.save(emailAuth);
-      }
-
-      const userRepo = getRepository(User);
-      const user = new User();
-      user.email = email;
-      user.username = username;
-      await userRepo.save(user);
-
-      const profile = new UserProfile();
-      profile.fk_user_id = user.id;
-      profile.display_name = display_name;
-      profile.short_bio = short_bio;
-      await getRepository(UserProfile).save(profile);
-
-      const tokens = await user.generateUserToken();
-      setTokenCookie(res, tokens);
-
-      return {
-        ok: true,
-        error: null,
-        register: {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          display_name: profile.display_name,
-          thumbnail: profile.thumbnail,
-          access_token: tokens.accessToken,
-          refresh_token: tokens.refreshToken
+        if (exists) {
+          return {
+            ok: false,
+            error: '409_ALREADY_EXISTS',
+            payload: email === exists.email ? 'email' : 'username'
+          };
         }
-      };
+
+        const emailAuthRepo = getRepository(EmailAuth);
+        const emailAuth = await emailAuthRepo.findOne(codeId);
+        if (emailAuth) {
+          emailAuth.logged = true;
+          await emailAuthRepo.save(emailAuth);
+        }
+
+        const userRepo = getRepository(User);
+        const user = new User();
+        user.email = email;
+        user.username = username;
+        await userRepo.save(user);
+
+        const profile = new UserProfile();
+        profile.fk_user_id = user.id;
+        profile.display_name = display_name;
+        profile.short_bio = short_bio;
+        await getRepository(UserProfile).save(profile);
+
+        const tokens = await user.generateUserToken();
+        setTokenCookie(res, tokens);
+
+        return {
+          ok: true,
+          error: null,
+          register: {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            display_name: profile.display_name,
+            thumbnail: profile.thumbnail,
+            access_token: tokens.accessToken,
+            refresh_token: tokens.refreshToken
+          }
+        };
+      } catch (e) {
+        throw new Error(e);
+      }
     }
   }
 };

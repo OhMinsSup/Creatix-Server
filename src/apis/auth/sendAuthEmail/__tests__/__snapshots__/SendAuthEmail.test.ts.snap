@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`SendAuthEmail SendAuthEmail 500 Error Throw 1`] = `"received is not a function"`;

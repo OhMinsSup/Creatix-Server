@@ -5,7 +5,9 @@ const privateResolver = resolverFunction => async (
   info: any
 ) => {
   if (!context.req['user_id']) {
-    throw new Error('401_ERROR_NO_JWT_UNAUTHENTICATED');
+    const error = new Error('UNAUTHENTICATED');
+    error.message = '401_ERROR_NO_JWT_UNAUTHENTICATED';
+    throw error;
   }
 
   const resolved = await resolverFunction(parent, args, context, info);
