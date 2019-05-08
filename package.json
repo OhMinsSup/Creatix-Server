@@ -7,7 +7,7 @@
     "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/apis/**/*.graphql",
     "types": "graphql-to-typescript ./src/schema.graphql ./src/typings/graph.d.ts",
     "build:types": "npm run pretypes && npm run types",
-    "build": "rimraf ./build && tsc && copyfiles -u 1 src/apis/**/*.graphql build",
+    "build": "rimraf ./build && tsc && copyfiles src/apis/**/*.graphql build/",
     "postinstall": "npm run build",
     "start": "set NODE_ENV=production&& node build/server.js",
     "dev": "set NODE_ENV=development&&nodemon --exec ts-node src/server.ts",
@@ -90,33 +90,9 @@
       "ts",
       "tsx"
     ],
-    "collectCoverageFrom": [
-      "**/*.{ts,js}",
-      "!**/node_modules/**",
-      "!**/build/**",
-      "!**/coverage/**",
-      "!**/src/typings/**"
-    ],
     "transform": {
       "^.+\\.(tsx|ts)?$": "ts-jest"
     },
-    "collectCoverage": true,
-    "testEnvironment": "node",
-    "coverageThreshold": {
-      "global": {
-        "branches": 80,
-        "functions": 80,
-        "lines": 80,
-        "statements": 80
-      }
-    },
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/webpack.config.js"
-    ],
-    "coverageReporters": [
-      "text",
-      "text-summary"
-    ],
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts)x?$",
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",

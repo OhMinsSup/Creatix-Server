@@ -62,7 +62,7 @@ class App {
       }
       console.log(`${process.env.NODE_ENV} Postgres RDBMS connection is established ✅`);
     } catch (e) {
-      console.log(e);
+      throw e;
     }
   }
 }

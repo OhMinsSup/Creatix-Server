@@ -8,7 +8,7 @@ const GRAPHQL_ENDPOINT = '/graphql';
 const PLAYGROUND_ENDPOINT = '/playground';
 const SUBSCRIPTION_ENDPOINT: string = '/subscription';
 
-interface ConnectionParamsType {
+interface ConnectionParams {
   access_token: string;
   refresh_token: string;
 }
@@ -23,9 +23,10 @@ const appOptions: Options = {
   },
   subscriptions: {
     path: SUBSCRIPTION_ENDPOINT,
-    onConnect: async (connectionParams: ConnectionParamsType) => {}
+    onConnect: async (connectionParams: ConnectionParams) => {}
   }
 };
 
-const handleListening = (): void => console.log(`Listening on http://localhost:${PORT} ✅`);
+const handleListening = (): void =>
+  console.log(`${process.env.NODE_ENV} Listening on http://localhost:${PORT} ✅`);
 app.start(appOptions, handleListening);
