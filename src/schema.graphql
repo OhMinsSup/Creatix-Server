@@ -15,7 +15,6 @@ type CheckUserResponse {
 type Query {
   CheckUser: CheckUserResponse
   Code(code: String!): CodeResponse!
-  Check: CheckResponse!
   Hello(name: String): HelloResponse!
 }
 
@@ -62,6 +61,7 @@ type Mutation {
   LocalRegister(register_token: String!, display_name: String!, username: String!, short_bio: String!): LocalRegisterResponse!
   LogOut: LogOutResponse!
   SendAuthEmail(email: String!): SendAuthEmailResponse!
+  WriteIllust(title: String!, url_slug: String, description: String, thumbnail: [String], tags: [String], is_private: Boolean!): WriteIllustResponse!
 }
 
 type LogOutResponse {
@@ -95,8 +95,8 @@ type User {
   id: ID!
   username: String!
   email: String!
-  created_at: String
-  updated_at: String
+  created_at: String!
+  updated_at: String!
 }
 
 scalar JSON
@@ -113,10 +113,53 @@ type UserProfile {
   updated_at: String
 }
 
-type CheckResponse {
+type HelloResponse {
   result: String
 }
 
-type HelloResponse {
-  result: String
+type Tag {
+  id: ID!
+  name: String!
+  created_at: String
+  updated_at: String
+}
+
+type Illust {
+  id: ID!
+  url_slug: String!
+  title: String!
+  description: String
+  is_private: Boolean!
+  likes: Int!
+  views: Int!
+  fk_user_id: String!
+  created_at: String
+  updated_at: String
+  user: User
+  illustImage: [IllustImage]
+  tags: [Tag]
+}
+
+type IllustImage {
+  id: ID!
+  thumbnail: String!
+  fk_illust_id: String!
+  created_at: String
+  updated_at: String
+  illust: Illust
+}
+
+type IllustsTags {
+  id: ID!
+  fk_illust_id: String!
+  fk_tag_id: String!
+  created_at: String
+  updated_at: String
+  tag: Tag
+  illust: Illust
+}
+
+type WriteIllustResponse {
+  ok: Boolean!
+  error: String
 }

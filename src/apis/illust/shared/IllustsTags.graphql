@@ -1,0 +1,9 @@
+type IllustsTags {
+    id: ID!
+    fk_illust_id: String!
+    fk_tag_id: String!
+    created_at: String
+    updated_at: String
+    tag: Tag
+    illust: Illust
+}

@@ -1,0 +1,8 @@
+type WriteIllustResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    WriteIllust(title: String!, url_slug: String, description: String, thumbnail: [String], tags: [String], is_private: Boolean!): WriteIllustResponse!
+}

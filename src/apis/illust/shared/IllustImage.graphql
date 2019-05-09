@@ -1,0 +1,8 @@
+type IllustImage {
+    id: ID!
+    thumbnail: String!
+    fk_illust_id: String!
+    created_at: String
+    updated_at: String
+    illust: Illust
+}
