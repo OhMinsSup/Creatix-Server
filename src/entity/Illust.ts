@@ -9,9 +9,9 @@ import {
   ManyToOne,
   JoinColumn
 } from 'typeorm';
-import Tag from './Tag';
 import IllustImage from './IllustImage';
 import User from './User';
+import IllustsTags from './IllustsTags';
 
 @Entity()
 class Illust {
@@ -26,7 +26,7 @@ class Illust {
   title: string;
 
   @Column({ type: 'text', nullable: true })
-  description!: string;
+  description?: string;
 
   @Column({ default: true })
   is_private: boolean;
@@ -55,10 +55,11 @@ class Illust {
 
   // 일러스트
   @OneToMany(type => IllustImage, illustImage => illustImage.illust)
-  illustImage: IllustImage[];
+  illustImages: IllustImage[];
 
   // 태그
-  tags: Tag[];
+  @OneToMany(type => IllustsTags, illustsTags => illustsTags.illust)
+  illustsTags: IllustsTags[];
 }
 
 export default Illust;

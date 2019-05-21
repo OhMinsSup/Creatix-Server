@@ -28,7 +28,7 @@ class IllustImage {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(type => Illust, illust => illust.illustImage)
+  @ManyToOne(type => Illust, illust => illust.illustImages)
   @JoinColumn({ name: 'fk_illust_id' })
   illust: Illust;
 }

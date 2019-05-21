@@ -16,6 +16,7 @@ type Query {
   CheckUser: CheckUserResponse
   Code(code: String!): CodeResponse!
   Hello(name: String): HelloResponse!
+  ReadIllust(username: String!, url_slug: String!, id: String): ReadIllustResponse
 }
 
 type CodeRegister {
@@ -124,6 +125,28 @@ type Tag {
   updated_at: String
 }
 
+type ResponseData {
+  id: ID!
+  url_slug: String!
+  title: String!
+  description: String
+  is_private: Boolean!
+  likes: Int!
+  views: Int!
+  fk_user_id: String!
+  created_at: String
+  updated_at: String
+  user: User
+  illustImages: [String]
+  illustTags: [String]
+}
+
+type ReadIllustResponse {
+  ok: Boolean!
+  error: String
+  illust: ResponseData
+}
+
 type Illust {
   id: ID!
   url_slug: String!
@@ -136,8 +159,8 @@ type Illust {
   created_at: String
   updated_at: String
   user: User
-  illustImage: [IllustImage]
-  tags: [Tag]
+  illustImages: [IllustImage]
+  illustTags: [IllustsTags]
 }
 
 type IllustImage {

@@ -1,10 +1,11 @@
-export const typeDefs = ["type UserData {\n  id: String\n  username: String\n  email: String\n  display_name: String\n  thumbnail: String\n}\n\ntype CheckUserResponse {\n  ok: Boolean!\n  error: String\n  user: UserData\n}\n\ntype Query {\n  CheckUser: CheckUserResponse\n  Code(code: String!): CodeResponse!\n  Hello(name: String): HelloResponse!\n}\n\ntype CodeRegister {\n  email: String\n  register_token: String\n}\n\ntype CodeLogin {\n  id: String\n  username: String\n  email: String\n  display_name: String\n  thumbnail: String\n  access_token: String\n  refresh_token: String\n}\n\ntype CodeResponse {\n  ok: Boolean!\n  error: String\n  registerResult: CodeRegister\n  loginResult: CodeLogin\n}\n\ntype Register {\n  id: String\n  username: String\n  email: String\n  display_name: String\n  thumbnail: String\n  access_token: String\n  refresh_token: String\n}\n\ntype LocalRegisterResponse {\n  ok: Boolean!\n  error: String\n  payload: String\n  register: Register\n}\n\ntype Mutation {\n  LocalRegister(register_token: String!, display_name: String!, username: String!, short_bio: String!): LocalRegisterResponse!\n  LogOut: LogOutResponse!\n  SendAuthEmail(email: String!): SendAuthEmailResponse!\n  WriteIllust(title: String!, url_slug: String, description: String, thumbnail: [String], tags: [String], is_private: Boolean!): WriteIllustResponse!\n}\n\ntype LogOutResponse {\n  ok: Boolean!\n}\n\ntype SendAuthEmailResponse {\n  ok: Boolean!\n  error: String\n  registered: Boolean\n}\n\ntype AuthToken {\n  id: ID!\n  fk_user_id: String!\n  disabled: Boolean!\n  created_at: String\n  updated_at: String\n}\n\ntype EmailAuth {\n  id: ID!\n  code: String\n  email: String\n  logged: Boolean\n  created_at: String\n  updated_at: String\n}\n\ntype User {\n  id: ID!\n  username: String!\n  email: String!\n  created_at: String!\n  updated_at: String!\n}\n\nscalar JSON\n\ntype UserProfile {\n  id: ID!\n  display_name: String\n  short_bio: String\n  thumbnail: String\n  fk_user_id: String!\n  profile_links: JSON\n  user: [User]!\n  created_at: String\n  updated_at: String\n}\n\ntype HelloResponse {\n  result: String\n}\n\ntype Tag {\n  id: ID!\n  name: String!\n  created_at: String\n  updated_at: String\n}\n\ntype Illust {\n  id: ID!\n  url_slug: String!\n  title: String!\n  description: String\n  is_private: Boolean!\n  likes: Int!\n  views: Int!\n  fk_user_id: String!\n  created_at: String\n  updated_at: String\n  user: User\n  illustImage: [IllustImage]\n  tags: [Tag]\n}\n\ntype IllustImage {\n  id: ID!\n  thumbnail: String!\n  fk_illust_id: String!\n  created_at: String\n  updated_at: String\n  illust: Illust\n}\n\ntype IllustsTags {\n  id: ID!\n  fk_illust_id: String!\n  fk_tag_id: String!\n  created_at: String\n  updated_at: String\n  tag: Tag\n  illust: Illust\n}\n\ntype WriteIllustResponse {\n  ok: Boolean!\n  error: String\n}\n"];
+export const typeDefs = ["type UserData {\n  id: String\n  username: String\n  email: String\n  display_name: String\n  thumbnail: String\n}\n\ntype CheckUserResponse {\n  ok: Boolean!\n  error: String\n  user: UserData\n}\n\ntype Query {\n  CheckUser: CheckUserResponse\n  Code(code: String!): CodeResponse!\n  Hello(name: String): HelloResponse!\n  ReadIllust(username: String!, url_slug: String!, id: String): ReadIllustResponse\n}\n\ntype CodeRegister {\n  email: String\n  register_token: String\n}\n\ntype CodeLogin {\n  id: String\n  username: String\n  email: String\n  display_name: String\n  thumbnail: String\n  access_token: String\n  refresh_token: String\n}\n\ntype CodeResponse {\n  ok: Boolean!\n  error: String\n  registerResult: CodeRegister\n  loginResult: CodeLogin\n}\n\ntype Register {\n  id: String\n  username: String\n  email: String\n  display_name: String\n  thumbnail: String\n  access_token: String\n  refresh_token: String\n}\n\ntype LocalRegisterResponse {\n  ok: Boolean!\n  error: String\n  payload: String\n  register: Register\n}\n\ntype Mutation {\n  LocalRegister(register_token: String!, display_name: String!, username: String!, short_bio: String!): LocalRegisterResponse!\n  LogOut: LogOutResponse!\n  SendAuthEmail(email: String!): SendAuthEmailResponse!\n  WriteIllust(title: String!, url_slug: String, description: String, thumbnail: [String], tags: [String], is_private: Boolean!): WriteIllustResponse!\n}\n\ntype LogOutResponse {\n  ok: Boolean!\n}\n\ntype SendAuthEmailResponse {\n  ok: Boolean!\n  error: String\n  registered: Boolean\n}\n\ntype AuthToken {\n  id: ID!\n  fk_user_id: String!\n  disabled: Boolean!\n  created_at: String\n  updated_at: String\n}\n\ntype EmailAuth {\n  id: ID!\n  code: String\n  email: String\n  logged: Boolean\n  created_at: String\n  updated_at: String\n}\n\ntype User {\n  id: ID!\n  username: String!\n  email: String!\n  created_at: String!\n  updated_at: String!\n}\n\nscalar JSON\n\ntype UserProfile {\n  id: ID!\n  display_name: String\n  short_bio: String\n  thumbnail: String\n  fk_user_id: String!\n  profile_links: JSON\n  user: [User]!\n  created_at: String\n  updated_at: String\n}\n\ntype HelloResponse {\n  result: String\n}\n\ntype Tag {\n  id: ID!\n  name: String!\n  created_at: String\n  updated_at: String\n}\n\ntype ResponseData {\n  id: ID!\n  url_slug: String!\n  title: String!\n  description: String\n  is_private: Boolean!\n  likes: Int!\n  views: Int!\n  fk_user_id: String!\n  created_at: String\n  updated_at: String\n  user: User\n  illustImages: [String]\n  illustTags: [String]\n}\n\ntype ReadIllustResponse {\n  ok: Boolean!\n  error: String\n  illust: ResponseData\n}\n\ntype Illust {\n  id: ID!\n  url_slug: String!\n  title: String!\n  description: String\n  is_private: Boolean!\n  likes: Int!\n  views: Int!\n  fk_user_id: String!\n  created_at: String\n  updated_at: String\n  user: User\n  illustImages: [IllustImage]\n  illustTags: [IllustsTags]\n}\n\ntype IllustImage {\n  id: ID!\n  thumbnail: String!\n  fk_illust_id: String!\n  created_at: String\n  updated_at: String\n  illust: Illust\n}\n\ntype IllustsTags {\n  id: ID!\n  fk_illust_id: String!\n  fk_tag_id: String!\n  created_at: String\n  updated_at: String\n  tag: Tag\n  illust: Illust\n}\n\ntype WriteIllustResponse {\n  ok: Boolean!\n  error: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
   CheckUser: CheckUserResponse | null;
   Code: CodeResponse;
   Hello: HelloResponse;
+  ReadIllust: ReadIllustResponse | null;
 }
 
 export interface CodeQueryArgs {
@@ -13,6 +14,12 @@ export interface CodeQueryArgs {
 
 export interface HelloQueryArgs {
   name: string | null;
+}
+
+export interface ReadIllustQueryArgs {
+  username: string;
+  url_slug: string;
+  id: string | null;
 }
 
 export interface CheckUserResponse {
@@ -53,6 +60,36 @@ export interface CodeLogin {
 
 export interface HelloResponse {
   result: string | null;
+}
+
+export interface ReadIllustResponse {
+  ok: boolean;
+  error: string | null;
+  illust: ResponseData | null;
+}
+
+export interface ResponseData {
+  id: string;
+  url_slug: string;
+  title: string;
+  description: string | null;
+  is_private: boolean;
+  likes: number;
+  views: number;
+  fk_user_id: string;
+  created_at: string | null;
+  updated_at: string | null;
+  user: User | null;
+  illustImages: Array<string> | null;
+  illustTags: Array<string> | null;
+}
+
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Mutation {
@@ -131,14 +168,6 @@ export interface EmailAuth {
   updated_at: string | null;
 }
 
-export interface User {
-  id: string;
-  username: string;
-  email: string;
-  created_at: string;
-  updated_at: string;
-}
-
 export type JSON = any;
 
 export interface UserProfile {
@@ -172,8 +201,8 @@ export interface Illust {
   created_at: string | null;
   updated_at: string | null;
   user: User | null;
-  illustImage: Array<IllustImage> | null;
-  tags: Array<Tag> | null;
+  illustImages: Array<IllustImage> | null;
+  illustTags: Array<IllustsTags> | null;
 }
 
 export interface IllustImage {

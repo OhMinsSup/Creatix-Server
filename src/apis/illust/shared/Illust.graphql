@@ -10,6 +10,6 @@ type Illust {
     created_at: String
     updated_at: String
     user: User
-    illustImage: [IllustImage]
-    tags: [Tag]
+    illustImages: [IllustImage]
+    illustTags: [IllustsTags]
 }

@@ -1,5 +1,6 @@
 import Joi from 'joi';
 import { Request, Response } from 'express';
+import { getRepository } from 'typeorm';
 import { Resolvers } from '../../../typings/resolvers';
 import privateResolver from '../../../lib/privateResolver';
 import {
@@ -10,9 +11,9 @@ import {
   filterUnique,
   checkUser
 } from '../../../lib/utils';
+import { getTagIds, iTagslink, iImageLink } from '../../../lib/repository';
 import { WriteIllustMutationArgs, WriteIllustMutationResponse } from './WriteIllust.typing';
-import { getRepository } from 'typeorm';
-import Illust from 'src/entity/Illust';
+import Illust from '../../../entity/Illust';
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -20,7 +21,7 @@ const resolvers: Resolvers = {
       async (
         _,
         args: WriteIllustMutationArgs,
-        { req, res }: { req: Request; res: Response }
+        { req }: { req: Request; res: Response }
       ): Promise<WriteIllustMutationResponse> => {
         const userId: string = req['user_id'];
         if (!checkUser(userId)) {
@@ -99,9 +100,21 @@ const resolvers: Resolvers = {
 
         const uniqueTags = tags ? filterUnique(tags) : [];
         const uniqueUrls = filterUnique(thumbnail);
-        console.log(uniqueTags, uniqueUrls);
 
         try {
+          const tagIds = await Promise.all(uniqueTags.map(tag => getTagIds(tag)));
+
+          const illust = new Illust();
+          illust.title = title;
+          illust.description = description;
+          illust.url_slug = processedSlug;
+          illust.is_private = is_private || false;
+          illust.fk_user_id = userId;
+          await illustRepo.save(illust);
+
+          await iTagslink(illust.id, tagIds);
+          await iImageLink(illust.id, uniqueUrls);
+
           return {
             ok: true,
             error: null

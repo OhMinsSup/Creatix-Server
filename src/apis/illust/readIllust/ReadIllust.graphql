@@ -1,0 +1,25 @@
+type ResponseData {
+    id: ID!
+    url_slug: String!
+    title: String!
+    description: String
+    is_private: Boolean!
+    likes: Int!
+    views: Int!
+    fk_user_id: String!
+    created_at: String
+    updated_at: String
+    user: User
+    illustImages: [String]
+    illustTags: [String]
+}
+
+type ReadIllustResponse {
+    ok: Boolean!
+    error: String
+    illust: ResponseData
+}
+
+type Query {
+    ReadIllust(username: String!, url_slug: String!, id: String): ReadIllustResponse
+}

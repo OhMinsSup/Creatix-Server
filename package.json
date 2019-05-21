@@ -12,7 +12,8 @@
     "start": "set NODE_ENV=production&& node build/server.js",
     "dev": "set NODE_ENV=development&&nodemon --exec ts-node src/server.ts",
     "test": "set NODE_ENV=test&&exit",
-    "test:dev": "set NODE_ENV=test&&jest --watchAll -u"
+    "test:dev": "set NODE_ENV=test&&jest --watchAll -u",
+    "test:e2e": "set NODE_ENV=test&&jest --config ./test/jest-e2e.json"
   },
   "engines": {
     "node": "10.x"
