@@ -12,37 +12,37 @@ import User from './User';
 @Entity()
 class UserProfile {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column({ type: 'varchar', nullable: true })
-  display_name: string;
+  display_name!: string;
 
   @Column({ type: 'text', nullable: true })
-  short_bio: string;
+  short_bio!: string;
 
   @Column({ type: 'text', nullable: true })
-  thumbnail: string | null;
+  thumbnail!: string | null;
 
   @Column('uuid')
-  fk_user_id: string;
+  fk_user_id!: string;
 
   @Column({
     default: {},
     type: 'jsonb'
   })
-  profile_links: any;
+  profile_links!: any;
 
   @Column('timestampz')
   @CreateDateColumn()
-  created_at: Date;
+  created_at!: Date;
 
   @Column('timestamptz')
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at!: Date;
 
   @OneToOne(type => User, { cascade: true })
   @JoinColumn({ name: 'fk_user_id' })
-  user: User;
+  user!: User;
 }
 
 export default UserProfile;

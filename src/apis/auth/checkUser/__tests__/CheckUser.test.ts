@@ -2,12 +2,7 @@ import { Connection, getRepository } from 'typeorm';
 import CheckUserResolver from '../CheckUser.resolvers';
 import UserProfile from '../../../../entity/UserProfile';
 import User from '../../../../entity/User';
-import {
-  createDatabase,
-  clearDatabase,
-  getEntities,
-  closeDatabase
-} from '../../../../../test/helper';
+import { createDatabase, clearDatabase, getEntities, closeDatabase } from '../../../../test/helper';
 
 describe('CheckUser', () => {
   let connection: Connection;

@@ -4,12 +4,7 @@ import CodeResolver from '../code.resolvers';
 import EmailAuth from '../../../../entity/EmailAuth';
 import UserProfile from '../../../../entity/UserProfile';
 import User from '../../../../entity/User';
-import {
-  createDatabase,
-  clearDatabase,
-  getEntities,
-  closeDatabase
-} from '../../../../../test/helper';
+import { createDatabase, clearDatabase, getEntities, closeDatabase } from '../../../../test/helper';
 
 describe('CodeResolver', () => {
   let connection: Connection;

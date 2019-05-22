@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { createConnect } from '../src/connectdb';
+import { createConnect } from '../connectdb';
 
 type EntitiesType = {
   name: string;

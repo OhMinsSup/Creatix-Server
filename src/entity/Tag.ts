@@ -10,19 +10,19 @@ import {
 @Entity()
 class Tag {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Index()
   @Column({ length: 255 })
-  name: string;
+  name!: string;
 
   @Column('timestampz')
   @CreateDateColumn()
-  created_at: Date;
+  created_at!: Date;
 
   @Column('timestamptz')
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at!: Date;
 }
 
 export default Tag;

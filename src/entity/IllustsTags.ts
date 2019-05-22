@@ -14,31 +14,31 @@ import Illust from './Illust';
 @Entity()
 class IllustsTags {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Index()
   @Column('uuid')
-  fk_illust_id: string;
+  fk_illust_id!: string;
 
   @Index()
   @Column('uuid')
-  fk_tag_id: string;
+  fk_tag_id!: string;
 
   @Column('timestampz')
   @CreateDateColumn()
-  created_at: Date;
+  created_at!: Date;
 
   @Column('timestamptz')
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at!: Date;
 
   @ManyToOne(type => Tag, { cascade: true, eager: true })
   @JoinColumn({ name: 'fk_tag_id' })
-  tag: Tag;
+  tag!: Tag;
 
   @ManyToOne(type => Illust, { cascade: true })
   @JoinColumn({ name: 'fk_illust_id' })
-  illust: Illust;
+  illust!: Illust;
 }
 
 export default IllustsTags;

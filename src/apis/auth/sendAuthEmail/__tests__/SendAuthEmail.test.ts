@@ -1,12 +1,7 @@
 import { Connection, getRepository } from 'typeorm';
 import SendAuthEamilResolver from '../SendAuthEmail.resolvers';
 import User from '../../../../entity/User';
-import {
-  createDatabase,
-  clearDatabase,
-  getEntities,
-  closeDatabase
-} from '../../../../../test/helper';
+import { createDatabase, clearDatabase, getEntities, closeDatabase } from '../../../../test/helper';
 
 describe('SendAuthEmail', () => {
   let connection: Connection;

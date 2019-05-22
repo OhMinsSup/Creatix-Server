@@ -12,25 +12,25 @@ import Illust from './Illust';
 @Entity()
 class IllustImage {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column({ length: 255 })
-  thumbnail: string;
+  thumbnail!: string;
 
   @Column('uuid')
-  fk_illust_id: string;
+  fk_illust_id!: string;
 
   @Column('timestampz')
   @CreateDateColumn()
-  created_at: Date;
+  created_at!: Date;
 
   @Column('timestamptz')
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at!: Date;
 
   @ManyToOne(type => Illust, illust => illust.illustImages)
   @JoinColumn({ name: 'fk_illust_id' })
-  illust: Illust;
+  illust!: Illust;
 }
 
 export default IllustImage;

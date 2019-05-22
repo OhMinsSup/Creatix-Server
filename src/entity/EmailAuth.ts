@@ -10,25 +10,25 @@ import {
 @Entity()
 class EmailAuth {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Index()
   @Column({ length: 255 })
-  code: string;
+  code!: string;
 
   @Column({ length: 255 })
-  email: string;
+  email!: string;
 
   @Column({ default: false })
-  logged: boolean;
+  logged!: boolean;
 
   @Column('timestampz')
   @CreateDateColumn()
-  created_at: Date;
+  created_at!: Date;
 
   @Column('timestamptz')
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at!: Date;
 }
 
 export default EmailAuth;

@@ -2,12 +2,7 @@ import { Connection, getRepository } from 'typeorm';
 import shortid from 'shortid';
 import faker from 'faker';
 import LocalRegisterResolver from '../LocalRegister.resolvers';
-import {
-  createDatabase,
-  clearDatabase,
-  getEntities,
-  closeDatabase
-} from '../../../../../test/helper';
+import { createDatabase, clearDatabase, getEntities, closeDatabase } from '../../../../test/helper';
 import EmailAuth from '../../../../entity/EmailAuth';
 import { generateToken } from '../../../../lib/token';
 
