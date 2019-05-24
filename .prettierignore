@@ -1,4 +1,6 @@
 ormconfig.json
+tslint.json
+tsconfig.json
 .travis.yml
 .appspec.yml
 deploy.sh

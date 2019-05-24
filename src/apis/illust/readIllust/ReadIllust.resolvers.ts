@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
+import { getRepository } from 'typeorm';
 import { Resolvers } from '../../../typings/resolvers';
 import { readIllust } from '../../../lib/repository';
+import User from '../../../entity/User';
 import { ReadIllustQueryArgs, ReadIllustQueryResponse } from './ReadIllust.typing';
 
 const resolvers: Resolvers = {
@@ -11,9 +13,42 @@ const resolvers: Resolvers = {
       {  }: { req: Request; res: Response }
     ): Promise<ReadIllustQueryResponse> => {
       const { username, url_slug, id } = args;
+      const userRepo = getRepository(User);
+      let userData: User | null = null;
 
       try {
-        let illust = await readIllust(username, url_slug, id);
+        let illust = await readIllust(username, url_slug);
+        if (!illust) {
+          const user = await userRepo.findOne({
+            where: username
+          });
+
+          if (!user) {
+            return {
+              ok: false,
+              error: '404_USER_NOT_FOUND',
+              illust: null
+            };
+          }
+
+          userData = user;
+          illust = await readIllust('', '', id);
+          if (!illust) {
+            return {
+              ok: false,
+              error: '404_ILLUST_NOT_FOUND',
+              illust: null
+            };
+          }
+        }
+
+        if (illust.is_private === true && (userData && userData.username) !== username) {
+          return {
+            ok: false,
+            error: '404_SERVER_ERROR',
+            illust: null
+          };
+        }
 
         return {
           ok: true,

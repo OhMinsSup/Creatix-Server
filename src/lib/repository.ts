@@ -1,8 +1,24 @@
 import { getRepository, getManager } from 'typeorm';
+import User from '../entity/User';
 import Tag from '../entity/Tag';
 import IllustsTags from '../entity/IllustsTags';
 import IllustImage from '../entity/IllustImage';
 import Illust from '../entity/Illust';
+
+export const checkUser = async (user_id: string): Promise<boolean> => {
+  try {
+    const userRepo = await getRepository(User);
+    const user = await userRepo.findOne({
+      where: {
+        id: user_id
+      }
+    });
+    if (!user) return false;
+    return true;
+  } catch (e) {
+    throw new Error(e);
+  }
+};
 
 export const serializeIllust = (data: Illust) => {
   const {
@@ -34,6 +50,7 @@ export const serializeIllust = (data: Illust) => {
       id: user.id,
       username: user.username
     },
+    // tslint:disable-next-line: object-shorthand-properties-first
     created_at,
     illustTags: tagDatas,
     illustImages: imageDatas
@@ -97,9 +114,9 @@ export const iImageLink = async (illustId: string, thumbnails: string[]) => {
   }
 };
 
-export const readIllust = async (username: string, url_slug: string, id?: string) => {
+export const readIllust = async (username?: string, url_slug?: string, id?: string) => {
   try {
-    if (id) {
+    if ((!username || !url_slug) && id) {
       const data = await getManager()
         .createQueryBuilder(Illust, 'illust')
         .leftJoinAndSelect('illust.user', 'user')

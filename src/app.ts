@@ -29,6 +29,7 @@ class App {
   }
 
   private middlewares = (): void => {
+    // tslint:disable-next-line: no-this-assignment
     const {
       app: { express }
     } = this;

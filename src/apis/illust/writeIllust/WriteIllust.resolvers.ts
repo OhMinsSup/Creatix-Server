@@ -8,10 +8,9 @@ import {
   generateSlugId,
   invalidUrlSlug,
   invalidText,
-  filterUnique,
-  checkUser
+  filterUnique
 } from '../../../lib/utils';
-import { getTagIds, iTagslink, iImageLink } from '../../../lib/repository';
+import { getTagIds, iTagslink, iImageLink, checkUser } from '../../../lib/repository';
 import { WriteIllustMutationArgs, WriteIllustMutationResponse } from './WriteIllust.typing';
 import Illust from '../../../entity/Illust';
 
