@@ -3,11 +3,13 @@ import { GraphQLServer } from 'graphql-yoga';
 import cors from 'cors';
 import helmet from 'helmet';
 import logger from 'morgan';
+import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compresion from 'compression';
 import schema from './schema';
+import routes from './routes';
 import { consumeUser } from './lib/token';
-import { createConnect, createConnectProd } from './connectdb';
+import { createConnectDev, createConnectProd, createConnectTest } from './connectdb';
 import { isDevClient, isDevServer, isPlayground } from './lib/utils';
 
 dotenv.config();
@@ -33,6 +35,7 @@ class App {
     const {
       app: { express }
     } = this;
+
     express.use(
       compresion({
         level: 6
@@ -49,18 +52,23 @@ class App {
       express.use(logger('dev'));
     }
 
+    express.use(bodyParser.json());
     express.use(helmet());
     express.use(cookieParser());
     express.use(consumeUser);
+    express.use(routes);
   };
 
   private async initiallizeDB() {
     try {
       if (process.env.NODE_ENV === 'production') {
         await createConnectProd();
+      } else if (process.env.NODE_ENV === 'test') {
+        await createConnectTest();
       } else {
-        await createConnect();
+        await createConnectDev();
       }
+
       console.log(`${process.env.NODE_ENV} Postgres RDBMS connection is established ✅`);
     } catch (e) {
       throw e;
