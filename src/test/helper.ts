@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { createConnect } from '../connectdb';
+import { createConnectTest } from '../connectdb';
 
 type EntitiesType = {
   name: string;
@@ -22,7 +22,7 @@ export async function getEntities(connection: Connection) {
 
 export async function createDatabase() {
   try {
-    const connection = await createConnect(true);
+    const connection = await createConnectTest(true);
     return connection;
   } catch (e) {
     throw new Error(e);

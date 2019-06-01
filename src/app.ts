@@ -9,7 +9,7 @@ import compresion from 'compression';
 import schema from './schema';
 import routes from './routes';
 import { consumeUser } from './lib/token';
-import { createConnectDev, createConnectProd, createConnectTest } from './connectdb';
+import { createConnectDev, createConnectProd } from './connectdb';
 import { isDevClient, isDevServer, isPlayground } from './lib/utils';
 
 dotenv.config();
@@ -63,9 +63,7 @@ class App {
     try {
       if (process.env.NODE_ENV === 'production') {
         await createConnectProd();
-      } else if (process.env.NODE_ENV === 'test') {
-        await createConnectTest();
-      } else {
+      } else if (process.env.NODE_ENV === 'development') {
         await createConnectDev();
       }
 

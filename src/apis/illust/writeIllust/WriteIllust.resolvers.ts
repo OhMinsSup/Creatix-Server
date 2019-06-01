@@ -23,11 +23,17 @@ const resolvers: Resolvers = {
         { req }: { req: Request; res: Response }
       ): Promise<WriteIllustMutationResponse> => {
         const userId: string = req['user_id'];
-        if (!checkUser(userId)) {
-          return {
-            ok: false,
-            error: '404_USER_NOT_FOUND'
-          };
+
+        try {
+          const check = await checkUser(userId);
+          if (!check) {
+            return {
+              ok: false,
+              error: '404_USER_NOT_FOUND'
+            };
+          }
+        } catch (e) {
+          throw new Error(e);
         }
 
         const schema = Joi.object().keys({

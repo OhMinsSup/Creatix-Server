@@ -94,6 +94,7 @@ export const refresh = async (req: Request, res: Response, refreshToken: string)
 
 export const consumeUser = async (req: Request, res: Response, next: NextFunction) => {
   let accessToken: string | undefined = req.cookies['access_token'];
+  // tslint:disable-next-line: prefer-const
   let refreshToken: string | undefined = req.cookies['refresh_token'];
 
   const { authorization } = req.headers;
