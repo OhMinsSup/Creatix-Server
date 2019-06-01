@@ -1,6 +1,5 @@
 import Joi from 'joi';
 import shortid from 'shortid';
-import { setImmediate } from 'timers';
 import { Resolvers } from '../../../typings/resolvers';
 import { SendAuthEmailArgs, SendAuthEmailResponse } from './SendAuthEmail.typing';
 import { getRepository } from 'typeorm';

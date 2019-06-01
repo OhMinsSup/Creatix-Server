@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import { Resolvers } from '../../../typings/resolvers';
-import { readIllust } from '../../../lib/repository';
+import { Resolvers, Context } from '../../../typings/resolvers';
+import { readIllust } from '../../../services/repository';
 import User from '../../../entity/User';
 import { ReadIllustQueryArgs, ReadIllustQueryResponse } from './ReadIllust.typing';
 
@@ -10,7 +9,7 @@ const resolvers: Resolvers = {
     ReadIllust: async (
       _,
       args: ReadIllustQueryArgs,
-      {  }: { req: Request; res: Response }
+      context: Context
     ): Promise<ReadIllustQueryResponse> => {
       const { username, url_slug, id } = args;
       const userRepo = getRepository(User);

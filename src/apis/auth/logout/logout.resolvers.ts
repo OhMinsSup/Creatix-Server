@@ -1,5 +1,4 @@
-import { Request, Response } from 'express';
-import { Resolvers } from '../../../typings/resolvers';
+import { Resolvers, Context } from '../../../typings/resolvers';
 import privateResolver from '../../../lib/privateResolver';
 import { LogOutResponse } from './logout.typing';
 import { setClearTokenCookie } from '../../../lib/token';
@@ -7,12 +6,8 @@ import { setClearTokenCookie } from '../../../lib/token';
 const resolvers: Resolvers = {
   Mutation: {
     LogOut: privateResolver(
-      async (
-        _: any,
-        __: any,
-        { res }: { req: Request; res: Response }
-      ): Promise<LogOutResponse> => {
-        setClearTokenCookie(res);
+      async (_: any, __: any, context: Context): Promise<LogOutResponse> => {
+        setClearTokenCookie(context.res);
         return {
           ok: true
         };

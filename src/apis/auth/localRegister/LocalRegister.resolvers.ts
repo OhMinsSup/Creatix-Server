@@ -1,7 +1,6 @@
 import Joi from 'joi';
 import { getRepository } from 'typeorm';
-import { Response, Request } from 'express';
-import { Resolvers } from '../../../typings/resolvers';
+import { Resolvers, Context } from '../../../typings/resolvers';
 import { LocalRegisterArgs, LocalRegisterResponse } from './LocalRegister.typing';
 import { decodeToken, setTokenCookie } from '../../../lib/token';
 import User from '../../../entity/User';
@@ -13,7 +12,7 @@ const resolvers: Resolvers = {
     LocalRegister: async (
       _,
       args: LocalRegisterArgs,
-      { res, req }: { res: Response; req: Request }
+      context: Context
     ): Promise<LocalRegisterResponse> => {
       const schema = Joi.object().keys({
         register_token: Joi.string().required(),
@@ -99,7 +98,7 @@ const resolvers: Resolvers = {
         await getRepository(UserProfile).save(profile);
 
         const tokens = await user.generateUserToken();
-        setTokenCookie(res, tokens);
+        setTokenCookie(context.res, tokens);
 
         return {
           ok: true,

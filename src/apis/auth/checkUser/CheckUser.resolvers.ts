@@ -1,6 +1,5 @@
-import { Response, Request } from 'express';
 import { getRepository } from 'typeorm';
-import { Resolvers } from '../../../typings/resolvers';
+import { Resolvers, Context } from '../../../typings/resolvers';
 import { CheckUserResponse } from './CheckUser.typing';
 import privateResolver from '../../../lib/privateResolver';
 import User from '../../../entity/User';
@@ -9,15 +8,16 @@ import UserProfile from '../../../entity/UserProfile';
 const resolvers: Resolvers = {
   Query: {
     CheckUser: privateResolver(
-      async (_, __, { req }: { req: Request; res: Response }): Promise<CheckUserResponse> => {
-        const userId = req['user_id'];
+      async (_, __, context: Context): Promise<CheckUserResponse> => {
+        const userId = context.req['user_id'];
 
-        if (!userId)
+        if (!userId) {
           return {
             ok: false,
             error: '401_ERROR_UNAUTHENTICATED',
             user: null
           };
+        }
 
         try {
           const userRepo = getRepository(User);

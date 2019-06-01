@@ -1,15 +1,14 @@
 import { getRepository } from 'typeorm';
-import { Response } from 'express';
 import EmailAuth from '../../../entity/EmailAuth';
 import User from '../../../entity/User';
 import UserProfile from '../../../entity/UserProfile';
 import { generateToken, setTokenCookie } from '../../../lib/token';
-import { Resolvers } from '../../../typings/resolvers';
+import { Resolvers, Context } from '../../../typings/resolvers';
 import { CodeResponse, CodeArgs } from './code.typing';
 
 const resolvers: Resolvers = {
   Query: {
-    Code: async (_, args: CodeArgs, { res }: { res: Response }): Promise<CodeResponse> => {
+    Code: async (_, args: CodeArgs, context: Context): Promise<CodeResponse> => {
       const { code } = args;
 
       try {
@@ -57,20 +56,22 @@ const resolvers: Resolvers = {
               register_token: registerToken
             }
           };
+          // tslint:disable-next-line: no-else-after-return
         } else {
           const profile = await getRepository(UserProfile).findOne({
             fk_user_id: user.id
           });
-          if (!profile)
+          if (!profile) {
             return {
               ok: false,
               error: '404_USER_PROFILE_NOT_FOUND'
             };
+          }
 
           const tokens = await user.generateUserToken();
           emailAuth.logged = true;
           getRepository(EmailAuth).save(emailAuth);
-          setTokenCookie(res, tokens);
+          setTokenCookie(context.res, tokens);
 
           return {
             ok: true,

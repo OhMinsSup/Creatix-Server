@@ -1,0 +1,8 @@
+type UpdateIllustResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    UpdateIllust: UpdateIllustResponse!
+}

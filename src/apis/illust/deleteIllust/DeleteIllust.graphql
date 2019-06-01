@@ -1,0 +1,8 @@
+type DeleteIllustResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    DeleteIllust: DeleteIllustResponse!
+}

@@ -3,7 +3,7 @@ import axios from 'axios';
 import sizeOf from 'image-size';
 import eTag from 'etag';
 import { Router } from 'express';
-import { checkUser } from '../../lib/repository';
+import { checkUser } from '../../services/repository';
 import authorized from '../../lib/middlewares/authorized';
 const cloudinary = require('cloudinary').v2;
 

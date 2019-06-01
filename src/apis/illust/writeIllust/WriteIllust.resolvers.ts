@@ -1,7 +1,6 @@
 import Joi from 'joi';
-import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import { Resolvers } from '../../../typings/resolvers';
+import { Resolvers, Context } from '../../../typings/resolvers';
 import privateResolver from '../../../lib/privateResolver';
 import {
   escapeForUrl,
@@ -10,7 +9,7 @@ import {
   invalidText,
   filterUnique
 } from '../../../lib/utils';
-import { getTagIds, iTagslink, iImageLink, checkUser } from '../../../lib/repository';
+import { getTagIds, iTagslink, iImageLink, checkUser } from '../../../services/repository';
 import { WriteIllustMutationArgs, WriteIllustMutationResponse } from './WriteIllust.typing';
 import Illust from '../../../entity/Illust';
 
@@ -20,9 +19,9 @@ const resolvers: Resolvers = {
       async (
         _,
         args: WriteIllustMutationArgs,
-        { req }: { req: Request; res: Response }
+        context: Context
       ): Promise<WriteIllustMutationResponse> => {
-        const userId: string = req['user_id'];
+        const userId: string = context.req['user_id'];
 
         try {
           const check = await checkUser(userId);
