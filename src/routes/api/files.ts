@@ -2,9 +2,9 @@ import sharp from 'sharp';
 import axios from 'axios';
 import sizeOf from 'image-size';
 import eTag from 'etag';
-import { Router } from 'express';
-import { checkUser } from '../../services/repository';
 import authorized from '../../lib/middlewares/authorized';
+import { Router } from 'express';
+import { checkUser } from '../../services/userServices';
 const cloudinary = require('cloudinary').v2;
 
 const files = Router();
@@ -23,7 +23,7 @@ cloudinary.config({
   api_secret: CLOUDINARY_API_SECRET
 });
 
-files.post('/illust/create-url', authorized, async (req, res) => {
+files.post('/create-url', authorized, async (req, res) => {
   interface BodySchema {
     userId: string;
   }
@@ -49,7 +49,7 @@ files.post('/illust/create-url', authorized, async (req, res) => {
     const filename = file.originalname.split('.')[0];
 
     const response = await cloudinary.uploader.upload(file.path, {
-      public_id: `creatix/illust-image/${userId}/${filename}`
+      public_id: `creatix/${userId}/${filename}`
     });
 
     if (!response || !response.secure_url) {
@@ -63,7 +63,7 @@ files.post('/illust/create-url', authorized, async (req, res) => {
       file: {
         filename,
         url: response.secure_url,
-        path: `creatix/illust-image/${userId}/${file.originalname}`
+        path: `creatix/${userId}/${file.originalname}`
       }
     });
   } catch (e) {

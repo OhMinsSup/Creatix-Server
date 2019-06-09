@@ -1,24 +1,5 @@
 import { getRepository, getManager } from 'typeorm';
-import User from '../entity/User';
-import Tag from '../entity/Tag';
-import IllustsTags from '../entity/IllustsTags';
-import IllustImage from '../entity/IllustImage';
 import Illust from '../entity/Illust';
-
-export const checkUser = async (user_id: string): Promise<boolean> => {
-  try {
-    const userRepo = await getRepository(User);
-    const user = await userRepo.findOne({
-      where: {
-        id: user_id
-      }
-    });
-    if (!user) return false;
-    return true;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
 
 export const serializeIllust = (data: Illust) => {
   const {
@@ -57,58 +38,19 @@ export const serializeIllust = (data: Illust) => {
   };
 };
 
-export const getTagIds = async (tag: string) => {
-  const name = tag.trim();
-
+export const checkIllustExistancy = async (illust_id: string): Promise<Illust | null> => {
   try {
-    const tagRepo = await getRepository(Tag);
-
-    let tag = await tagRepo.findOne({
-      where: { name: name.replace(/\-/g, ' ').toLowerCase() }
+    const illustRepo = await getRepository(Illust);
+    const illust = await illustRepo.findOne({
+      where: {
+        id: illust_id
+      }
     });
-
-    if (!tag) {
-      tag = new Tag();
-      tag.name = name.replace(/\-/g, ' ').toLowerCase();
-      await tagRepo.save(tag);
+    if (!illust) {
+      return null;
     }
 
-    return tag.id;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-export const iTagslink = async (illustId: string, tagIds: string[]) => {
-  if (!illustId && !tagIds) return null;
-  try {
-    const iTagsRepo = getRepository(IllustsTags);
-    const promises = tagIds.map(tagId => {
-      const iTags = new IllustsTags();
-      iTags.fk_illust_id = illustId;
-      iTags.fk_tag_id = tagId;
-      return iTagsRepo.save(iTags);
-    });
-
-    return await Promise.all(promises);
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-export const iImageLink = async (illustId: string, thumbnails: string[]) => {
-  if (!illustId && !thumbnails) return null;
-
-  try {
-    const iImageRepo = await getRepository(IllustImage);
-    const promises = thumbnails.map(thumbnail => {
-      const iImage = new IllustImage();
-      iImage.fk_illust_id = illustId;
-      iImage.thumbnail = thumbnail;
-      return iImageRepo.save(iImage);
-    });
-
-    return await Promise.all(promises);
+    return illust;
   } catch (e) {
     throw new Error(e);
   }

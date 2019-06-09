@@ -1,8 +1,8 @@
 import { getRepository } from 'typeorm';
-import { Resolvers, Context } from '../../../typings/resolvers';
-import { readIllust } from '../../../services/repository';
 import User from '../../../entity/User';
+import { Resolvers, Context } from '../../../typings/resolvers';
 import { ReadIllustQueryArgs, ReadIllustQueryResponse } from './ReadIllust.typing';
+import { readIllust } from '../../../services/illustServices';
 
 const resolvers: Resolvers = {
   Query: {

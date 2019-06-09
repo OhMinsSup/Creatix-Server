@@ -9,9 +9,12 @@ import {
   invalidText,
   filterUnique
 } from '../../../lib/utils';
-import { getTagIds, iTagslink, iImageLink, checkUser } from '../../../services/repository';
 import { WriteIllustMutationArgs, WriteIllustMutationResponse } from './WriteIllust.typing';
 import Illust from '../../../entity/Illust';
+import { checkUser } from '../../../services/userServices';
+import { getTagIds } from '../../../services/tagServices';
+import { iTagslink } from '../../../services/illustTagServices';
+import { iImageLink } from '../../../services/illustImageServices';
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -64,7 +67,7 @@ const resolvers: Resolvers = {
         }
 
         const { title, description, tags, url_slug, is_private, thumbnail } = args;
-        const illustRepo = getRepository(Illust);
+        const illustRepo = await getRepository(Illust);
 
         const uniqueUrlSlug = escapeForUrl(`${title} ${generateSlugId()}`);
         const userUserSlug = url_slug ? escapeForUrl(url_slug) : '';

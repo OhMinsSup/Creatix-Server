@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import files from './files';
+import callback from './callback';
 
 const api = Router();
 const storage = multer.diskStorage({});
@@ -19,5 +20,6 @@ const upload = multer({
 }).single('image');
 
 api.use('/files', upload, files);
+api.use('/callback', callback);
 
 export default api;
