@@ -6,9 +6,7 @@ import authorized from '../../lib/middlewares/authorized';
 import { Router } from 'express';
 import { checkUser } from '../../services/userServices';
 const cloudinary = require('cloudinary').v2;
-
 const files = Router();
-
 const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_APIKEY, CLOUDINARY_API_SECRET } = process.env;
 
 if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_APIKEY || !CLOUDINARY_API_SECRET) {
@@ -26,10 +24,11 @@ cloudinary.config({
 files.post('/create-url', authorized, async (req, res) => {
   interface BodySchema {
     userId: string;
+    filePath: string;
   }
 
   const { file, body } = req;
-  const { userId } = body as BodySchema;
+  const { userId, filePath } = body as BodySchema;
   if (!file) {
     return res.status(400).json({
       ok: false,
@@ -63,7 +62,7 @@ files.post('/create-url', authorized, async (req, res) => {
       file: {
         filename,
         url: response.secure_url,
-        path: `creatix/${userId}/${file.originalname}`
+        path: `creatix/${userId}/${filePath}/${file.originalname}`
       }
     });
   } catch (e) {

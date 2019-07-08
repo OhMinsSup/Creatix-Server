@@ -48,6 +48,7 @@ const getProfile = {
       axios
         .get('https://openapi.naver.com/v1/nid/me', {
           headers: {
+            // tslint:disable-next-line: prefer-template
             Authorization: 'Bearer ' + accessToken
           }
         })

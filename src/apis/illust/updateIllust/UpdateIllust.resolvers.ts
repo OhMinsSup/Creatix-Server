@@ -11,6 +11,7 @@ import {
   removeTagsFromPost,
   addTagsToPost
 } from '../../../services/illustTagServices';
+import { updateiImageLink } from '../../../services/illustImageServices';
 const diff = require('json-diff');
 
 const resolvers: Resolvers = {
@@ -101,7 +102,7 @@ const resolvers: Resolvers = {
               fk_user_id: userId
             }
           });
-
+          console.log(allIllust);
           if (exists > 0) {
             processedSlug = generatedUrlSlug;
           }
@@ -121,8 +122,7 @@ const resolvers: Resolvers = {
         title,
         description,
         url_slug: urlSlugShouldChange ? processedSlug : undefined,
-        is_private: is_private || false,
-        thumbnail
+        is_private: is_private || false
       };
 
       Object.keys(query).forEach(key => {
@@ -134,12 +134,6 @@ const resolvers: Resolvers = {
       if (tags) {
         try {
           const currentTags = await getTagNames(illustData.id);
-          if (!currentTags || currentTags.length === 0) {
-            return {
-              ok: false,
-              error: '404_TAG_DATA_NOT_FOUND'
-            };
-          }
           const tagNames = currentTags.map(tag => tag.tag.name);
           const tagDiff: string[] = diff(tagNames.sort(), tags.sort()) || [];
 
@@ -155,13 +149,18 @@ const resolvers: Resolvers = {
 
       if (thumbnail) {
         try {
+          await updateiImageLink(illustData.id, thumbnail);
         } catch (e) {
           new Error(e);
         }
       }
 
-      // TODO update Code
-
+      await illustRepo
+        .createQueryBuilder()
+        .update()
+        .set(query)
+        .where('id = :id', { id: illustData.id })
+        .execute();
       return {
         ok: true,
         error: null

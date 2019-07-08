@@ -25,7 +25,7 @@ export const createAuthEmail = (registered: boolean, code: string) => {
       
       <div style="text-align: center; margin-top: 1rem; color: #868e96; font-size: 0.85rem;"><div>위 버튼을 클릭하시거나, 다음 링크를 열으세요: <br/> <a style="color: #b197fc;" href="${isDevClient}/${
     keywords.type
-  }?code=${code}">http://localhost:3000/${
+  }?code=${code}">http:${isDevClient}/${
     keywords.type
   }?code=${code}</a></div><br/><div>이 링크는 24시간동안 유효합니다. </div></div>`;
 

@@ -31,7 +31,7 @@ export const getTagNames = async (illust_id: string) => {
       .getMany();
 
     if (data.length === 0 || !data) {
-      return null;
+      return [];
     }
 
     return data;
