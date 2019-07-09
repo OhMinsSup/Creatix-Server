@@ -27,11 +27,11 @@ const resolvers: Resolvers = {
       let illustData: Illust | null = null;
 
       try {
-        illustData = await checkIllustExistancy(illustId);
-        if (!illustData) {
+        const check = await checkUser(userId);
+        if (!check) {
           return {
             ok: false,
-            error: '404_ILLUST_NOT_FOUND'
+            error: '404_USER_NOT_FOUND'
           };
         }
       } catch (e) {
@@ -39,11 +39,11 @@ const resolvers: Resolvers = {
       }
 
       try {
-        const check = await checkUser(userId);
-        if (!check) {
+        illustData = await checkIllustExistancy(illustId);
+        if (!illustData) {
           return {
             ok: false,
-            error: '404_USER_NOT_FOUND'
+            error: '404_ILLUST_NOT_FOUND'
           };
         }
       } catch (e) {

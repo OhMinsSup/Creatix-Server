@@ -4,5 +4,5 @@ type UpdateIllustResponse {
 }
 
 type Mutation {
-    UpdateIllust: UpdateIllustResponse!
+    UpdateIllust(illustId: String!, title: String!, url_slug: String, description: String, thumbnail: [String], tags: [String], is_private: Boolean!): UpdateIllustResponse!
 }

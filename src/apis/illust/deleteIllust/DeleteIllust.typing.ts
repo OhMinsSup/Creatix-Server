@@ -1,3 +1,8 @@
-export interface DeleteIllustMutationArgs {}
+export interface DeleteIllustMutationArgs {
+  illustId: string;
+}
 
-export interface DeleteIllustMutationResponse {}
+export interface DeleteIllustMutationResponse {
+  ok: boolean;
+  error: string | null;
+}

@@ -4,5 +4,5 @@ type DeleteIllustResponse {
 }
 
 type Mutation {
-    DeleteIllust: DeleteIllustResponse!
+    DeleteIllust(illustId: String!): DeleteIllustResponse!
 }
