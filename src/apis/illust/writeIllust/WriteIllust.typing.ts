@@ -1,3 +1,5 @@
+import Illust from '../../../entity/Illust';
+
 export interface WriteIllustMutationArgs {
   title: string;
   thumbnail: string[];
@@ -10,4 +12,5 @@ export interface WriteIllustMutationArgs {
 export interface WriteIllustMutationResponse {
   ok: boolean;
   error: any | null;
+  illust?: Illust;
 }

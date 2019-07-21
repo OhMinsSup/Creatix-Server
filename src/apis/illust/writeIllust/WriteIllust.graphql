@@ -1,6 +1,7 @@
 type WriteIllustResponse {
     ok: Boolean!
     error: String
+    illust: Illust
 }
 
 type Mutation {

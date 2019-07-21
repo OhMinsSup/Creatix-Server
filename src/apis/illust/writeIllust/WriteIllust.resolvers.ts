@@ -123,6 +123,7 @@ const resolvers: Resolvers = {
           await iImageLink(illust.id, uniqueUrls);
 
           return {
+            illust,
             ok: true,
             error: null
           };
