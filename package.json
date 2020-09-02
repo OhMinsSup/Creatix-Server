@@ -70,7 +70,7 @@
     "etag": "^1.8.1",
     "express": "^4.16.4",
     "fb": "^2.0.0",
-    "googleapis": "^37.2.0",
+    "googleapis": "^39.1.0",
     "gql-merge": "0.0.6",
     "graphql": "^14.2.1",
     "graphql-to-typescript": "^0.1.2",
