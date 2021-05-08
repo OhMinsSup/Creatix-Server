@@ -92,7 +92,7 @@
     "reflect-metadata": "^0.1.13",
     "sharp": "^0.22.1",
     "shortid": "^2.2.14",
-    "typeorm": "^0.2.13",
+    "typeorm": "^0.2.25",
     "webpack": "^4.29.5"
   },
   "jest": {
